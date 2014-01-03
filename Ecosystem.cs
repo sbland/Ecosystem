@@ -19,6 +19,7 @@ using System.Xml;
 using System.IO;
 
 
+
 public class Ecosystem : MonoBehaviour {
 
 	//Input
@@ -33,30 +34,37 @@ public class Ecosystem : MonoBehaviour {
 	public Rigidbody humanModel;
 	public Transform spawnPlane;
 
+	public string saveLocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\Ecosystem";
+
 	//properties
 
 	private int updateCount = 0;
-
+	GameObject[] treeList;
+	GameObject[] humanList;
 	//objects
 
 
 	// Use this for initialization2783 4163 7166
 
 	void Start () {
+		//set values to user input
 		EcosystemAtmosphere.Oxygen = initialOxygen;
 		EcosystemAtmosphere.Co = initialCo;
 		EcosystemEnvironment.Temperature = initialTemperature;
 		EcosystemEnvironment.Humidity = initialHumidity;
 
-		EcosystemEntityTree treeA = new EcosystemEntityTree();
+
+		//Allows random trees to be initialized at start
+		/*EcosystemEntityTree treeA = new EcosystemEntityTree();
 		EcosystemEntityTree treeB = new EcosystemEntityTree();
 		EcosystemEntityTree treeC = new EcosystemEntityTree();
 		EcosystemEntityTree treeD = new EcosystemEntityTree();
 		EcosystemEntityHuman humanA = new EcosystemEntityHuman ();
 		EcosystemEntityHuman humanB = new EcosystemEntityHuman ();
+		*/
 
 
-		Rigidbody treeInstance;
+		/*Rigidbody treeInstance;
 		Rigidbody humanInstance;
 
 		//create initial trees
@@ -70,17 +78,26 @@ public class Ecosystem : MonoBehaviour {
 			Vector3 position = new Vector3(Random.Range(-10.0F, 10.0F), 0, Random.Range(-10.0F, 10.0F));
 			humanInstance = Instantiate (humanModel, spawnPlane.position+position, spawnPlane.rotation) as Rigidbody;
 		}
-		
+		*/
+		string dir = saveLocation + "\\saveTest.txt";
+		File.WriteAllText (dir, "Trees, Humans, Oxygen, CO2 \r\n");
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+		// Get entity counts
+		treeList = GameObject.FindGameObjectsWithTag ("ecosystemTrees");
+		humanList = GameObject.FindGameObjectsWithTag ("ecosystemHuman");
+		EcosystemEntityTree.Count = treeList.Length;
+		EcosystemEntityHuman.Count = humanList.Length;
+
 		if (this.updateCount == this.updateRate) 
 			{
 				EcosystemCalculations();
-				
 				EcosystemConsoleLog();
+				EcosystemDataLog();
 				this.updateCount = 0;
 			}
 		this.updateCount++;
@@ -107,8 +124,7 @@ public class Ecosystem : MonoBehaviour {
 	{
 		Rigidbody treeInstance;
 		Rigidbody humanInstance;
-		GameObject[] treeList = GameObject.FindGameObjectsWithTag ("ecosystemTrees");
-		GameObject[] humanList = GameObject.FindGameObjectsWithTag ("ecosystemHuman");
+
 
 
 		if (EcosystemAtmosphere.Co > 8) {
@@ -134,8 +150,7 @@ public class Ecosystem : MonoBehaviour {
 			Destroy(humanList[val]);
 			EcosystemEntityHuman.Count --;
 		}
-		Debug.Log (treeList.Length + "trees");
-		Debug.Log (humanList.Length + "Humans");
+
 	}
 
 
@@ -149,10 +164,18 @@ public class Ecosystem : MonoBehaviour {
 		//Debug.Log (EcosystemEnvironment.Temperature + EcosystemEnvironment.Units.Temperature);
 		Debug.Log (EcosystemEntityTree.Count);
 		Debug.Log (EcosystemEntityHuman.Count);
+		Debug.Log ("End");
 	}
 
 	void EcosystemDataLog()
 	{
-		
+		//File Write Test]
+		string dir = saveLocation + "\\saveTest.txt";
+		string[] printme = {EcosystemEntityTree.Count + "", ", " + EcosystemEntityHuman.Count, ", " + EcosystemAtmosphere.Oxygen, ", " + EcosystemAtmosphere.Co + "\r\n"};
+		for (int i = 0; i<printme.Length; i++) 
+		{
+			File.AppendAllText(dir, printme[i]);
+		}
+
 	}
 }

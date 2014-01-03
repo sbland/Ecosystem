@@ -5,8 +5,8 @@ public class EcosystemEntityHuman
 {
 	//properties
 	private static int m_count = 0;
-	private static double m_oxygenConsumption = 2;
-	private static double m_coRelease = 20;
+	private static double m_oxygenConsumption = 17;
+	private static double m_coRelease = 15;
 
 	public Rigidbody humanPrefab;
 	

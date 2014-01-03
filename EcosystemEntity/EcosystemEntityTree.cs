@@ -5,8 +5,8 @@ public class EcosystemEntityTree
 {
 	//properties
 	private static int m_count = 0;
-	private static double m_coConsumption = 2;
-	private static double m_oxygenRelease = 20;
+	private static double m_coConsumption = 17;
+	private static double m_oxygenRelease = 15;
 
 	public class TreeModel : MonoBehaviour
 	{
