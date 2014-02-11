@@ -1,16 +1,17 @@
 using UnityEngine;
 using System.Collections;
 
-public class EcosystemEntityHuman
+public class EcosystemEntityCow : EcosystemEntity
 {
+
 	//properties
 	private static int m_count = 0;
 	private static double m_oxygenConsumption = 14;
 	private static double m_coRelease = 15;
-
-	public Rigidbody humanPrefab;
 	
-
+	public Rigidbody cowPrefab;
+	
+	
 	//methods
 	public static int Count {
 		get{
@@ -20,7 +21,7 @@ public class EcosystemEntityHuman
 			m_count = value;		
 		}
 	}
-
+	
 	public static double OxygenConsumption {
 		get{
 			return m_oxygenConsumption;
@@ -29,7 +30,7 @@ public class EcosystemEntityHuman
 			m_oxygenConsumption = value;		
 		}
 	}
-
+	
 	public static double coRelease {
 		get{
 			return m_coRelease;
@@ -38,24 +39,24 @@ public class EcosystemEntityHuman
 			m_coRelease = value;		
 		}
 	}
-
-
+	
+	
 	//Constructor
-	public EcosystemEntityHuman()
+	public EcosystemEntityCow()
 	{
 		Count++;
 	}
-
+	
 	// Use this for initialization
 	void Start ()
 	{
-	
+		
 	}
-
+	
 	// Update is called once per frame
 	void Update ()
 	{
-
+		
 	}
 }
 
