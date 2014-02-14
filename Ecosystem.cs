@@ -20,13 +20,14 @@ using System.IO;
 
 
 
+
 public class Ecosystem : MonoBehaviour {
 
 	//Input (User)
-	public int updateRate = 100;
+	public int updateRate = 500;
 
 	public double initialOxygen = 10;
-	public double initialCo = 20;
+	public double initialCo = 10;
 	public double initialTemperature = 27;
 	public double initialHumidity = 45;
 
@@ -54,6 +55,7 @@ public class Ecosystem : MonoBehaviour {
 
 	void Start () {
 		Initialization ();
+		EntityCounts();
 
 		File.WriteAllText (dir, "Trees, Humans, Cow, Oxygen, CO2 \r\n");	//Write column headers
 
@@ -63,17 +65,7 @@ public class Ecosystem : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		// Get entity counts
-		{
-			treeList = GameObject.FindGameObjectsWithTag ("ecosystemTrees");
-			humanList = GameObject.FindGameObjectsWithTag ("ecosystemHuman");
-			cowList = GameObject.FindGameObjectsWithTag ("ecosystemCow");
-		
-			EcosystemEntityTree.Count = treeList.Length;
-			EcosystemEntityHuman.Count = humanList.Length;
-			EcosystemEntityCow.Count = cowList.Length;
-		}
-
+		//EntityCounts();
 		if (this.updateCount == this.updateRate) 
 			{
 				EcosystemCalculations();	
@@ -97,17 +89,27 @@ public class Ecosystem : MonoBehaviour {
 		EcosystemAtmosphere.Co = initialCo;
 		EcosystemEnvironment.Temperature = initialTemperature;
 		EcosystemEnvironment.Humidity = initialHumidity;
-		dir = saveLocation + "\\saveTest.txt";
+		dir = saveLocation + "\\saveTest_" + System.DateTime.Now.ToString("HHmm_d_M_yy") + ".txt";
 	}//End Initialization()--------------------------------------------------------------------------------------------------------
 
-
+	// Get entity counts
+	private void EntityCounts()
+	{
+		treeList = GameObject.FindGameObjectsWithTag ("ecosystemTrees");
+		humanList = GameObject.FindGameObjectsWithTag ("ecosystemHuman");
+		cowList = GameObject.FindGameObjectsWithTag ("ecosystemCow");
+		
+		EcosystemEntityTree.Count = treeList.Length;
+		EcosystemEntityHuman.Count = humanList.Length;
+		EcosystemEntityCow.Count = cowList.Length;
+	}
 	/// <summary>
 	/// Ecosystems the calculations.
 	/// </summary>
 	void EcosystemCalculations()
 	{
-		//EcosystemEntityHuman.EcoUpdate ();
-		//EcosystemEntityTree.EcoUpdate ();
+		EcosystemEntityHuman.EcoUpdate ();
+		EcosystemEntityTree.EcoUpdate ();
 		//EcosystemEntityCow.EcoUpdate ();
 
 
@@ -125,67 +127,41 @@ public class Ecosystem : MonoBehaviour {
 
 
 		//Create Tree
-		if (EcosystemAtmosphere.Co > 8) {
+		if (EcosystemAtmosphere.Co > 90) {
 			//Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
 			//treeInstance = Instantiate (treeModel, spawnPlane.position + position, spawnPlane.rotation) as Rigidbody;
-			//EcosystemEntityTree.Count++;
+			EcosystemEntityTree.Count++;
 		}
 
 		//Create Human
-		if (EcosystemAtmosphere.Oxygen > 8) {
+		if (EcosystemAtmosphere.Oxygen > 90) {
 			//Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
 			//humanInstance = Instantiate (humanModel, spawnPlane.position + position, spawnPlane.rotation) as Rigidbody;
-			//EcosystemEntityHuman.Count++;
+			EcosystemEntityHuman.Count++;
 		}
 		//Create Cow
-		if (EcosystemAtmosphere.Oxygen > 15) {
+		if (EcosystemAtmosphere.Oxygen > 140) {
 			//Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
 			//cowInstance = Instantiate (cowModel, spawnPlane.position + position, spawnPlane.rotation) as Rigidbody;
 			//EcosystemEntityCow.Count++;
 		}
 
-
-/*		//Destroy Tree
-		if (EcosystemAtmosphere.Co < 2 && treeList.Length > 0) {
-			int val = Random.Range(0, treeList.Length-1);
-
-			if(treeList[val]){
+		//Destroy Tree
+		if (EcosystemAtmosphere.Co < 8) {
+			EcosystemEntityTree.Count--;
+		}
 		
-				try{
-					Destroy(treeList[val]);
-				}catch(System.Exception e){
-					print("Error");
-				}
-				EcosystemEntityTree.Count --;
-			}
-		}
-
 		//Destroy Human
-		if (EcosystemAtmosphere.Oxygen < 2 && humanList.Length > 0) {
-			int val = Random.Range(0, humanList.Length-1);
-			if(humanList[val]){
-				try{
-					Destroy(humanList[val]);
-				}catch(System.Exception e){
-					print("Error");
-				}
-				
-				EcosystemEntityHuman.Count --;
-			}
+		if (EcosystemAtmosphere.Oxygen < 8) {
+			EcosystemEntityHuman.Count--;
 		}
-
 		//Destroy Cow
-
-		if (EcosystemAtmosphere.Oxygen < 2 && cowList.Length > 0) {
-			int val = Random.Range(0, cowList.Length-1);
-				if(cowList[val]){
-				Destroy(cowList[val]);
-				EcosystemEntityCow.Count --;
-				}
-
-				
+		if (EcosystemAtmosphere.Oxygen < 15) {
+			//EcosystemEntityCow.Count--;
 		}
-*/
+
+
+
 
 	}// End EcosystemPostCalculations()--------------------------------------------------------------------------------------------------------
 
@@ -195,14 +171,7 @@ public class Ecosystem : MonoBehaviour {
 	/// </summary>
 	void EcosystemConsoleLog()
 	{
-		/*
-		Debug.Log (EcosystemAtmosphere.Oxygen + EcosystemAtmosphere.Units.Oxygen);
-		Debug.Log (EcosystemAtmosphere.Co + EcosystemAtmosphere.Units.Co);
-		//Debug.Log (EcosystemEnvironment.Temperature + EcosystemEnvironment.Units.Temperature);
-		Debug.Log (EcosystemEntityTree.Count);
-		Debug.Log (EcosystemEntityHuman.Count);
-		Debug.Log ("End");
-		*/
+
 	}// End EcosystemConsoleLog()--------------------------------------------------------------------------------------------------------
 
 	/// <summary>
@@ -212,7 +181,7 @@ public class Ecosystem : MonoBehaviour {
 	void EcosystemDataLog()
 	{
 		//File Write Test]
-		string dir = saveLocation + "\\saveTest.txt";
+		//string dir = saveLocation + "\\saveTest.txt";
 		string[] printme = {EcosystemEntityTree.Count + "", ", " + EcosystemEntityHuman.Count, ", "+ EcosystemEntityCow.Count, ", " + EcosystemAtmosphere.Oxygen, ", " + EcosystemAtmosphere.Co + "\r\n"};
 		for (int i = 0; i<printme.Length; i++) 
 		{

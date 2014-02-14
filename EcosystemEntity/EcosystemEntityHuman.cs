@@ -5,19 +5,23 @@ public class EcosystemEntityHuman
 {
 	//properties
 	private static int m_count = 0;
-	private static double m_oxygenChange = -14;
-	private static double m_coChange = 15;
+	private static double m_coChange = 20;
+	private static double m_oxygenChange = -20;
 
 	public Rigidbody humanPrefab;
 	
 
 	//methods
-	new public static int Count {
+	public static int Count {
 		get{
 			return m_count;
 		}
 		set{
-			m_count = value;		
+			if(value>=0)
+			{
+				m_count = value;
+			}
+
 		}
 	}
 	

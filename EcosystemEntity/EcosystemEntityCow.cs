@@ -6,8 +6,8 @@ public class EcosystemEntityCow : EcosystemEntity
 
 	//properties
 	private static int m_count = 0;
-	private static double m_oxygenChange = -14;
-	private static double m_coChange = 15;
+	private static double m_oxygenChange = 0;
+	private static double m_coChange = 0;
 	
 	public Rigidbody cowPrefab;
 	
@@ -18,7 +18,10 @@ public class EcosystemEntityCow : EcosystemEntity
 			return m_count;
 		}
 		set{
-			m_count = value;		
+			if(value>=0)
+			{
+				m_count = value;
+			}	
 		}
 	}
 	
@@ -61,8 +64,8 @@ public class EcosystemEntityCow : EcosystemEntity
 
 	public static void EcoUpdate ()
 	{
-		EcosystemAtmosphere.Oxygen += m_oxygenChange * m_count;
-		EcosystemAtmosphere.Co += m_coChange * m_count;
+		//EcosystemAtmosphere.Oxygen += m_oxygenChange * m_count;
+		//EcosystemAtmosphere.Co += m_coChange * m_count;
 	}
 }
 

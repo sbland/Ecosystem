@@ -5,8 +5,8 @@ public class EcosystemEntityTree
 {
 	//properties
 	private static int m_count = 0;
-	private static double m_coChange = -12;
-	private static double m_oxygenChange = 9;
+	private static double m_coChange = -20;
+	private static double m_oxygenChange = 20;
 
 	public class TreeModel : MonoBehaviour
 	{
@@ -23,7 +23,7 @@ public class EcosystemEntityTree
 			
 		}
 	}
-
+	 
 
 	//Constructor
 	public EcosystemEntityTree()
@@ -40,7 +40,10 @@ public class EcosystemEntityTree
 			return m_count;
 		}
 		set{
-			m_count = value;		
+			if(value>=0)
+			{
+				m_count = value;
+			}		
 		}
 	}
 
@@ -76,8 +79,8 @@ public class EcosystemEntityTree
 
 	public static void EcoUpdate ()
 	{
-		EcosystemAtmosphere.Oxygen += m_oxygenChange * m_count;
-		EcosystemAtmosphere.Co += m_coChange * m_count;
+		EcosystemAtmosphere.Oxygen =+ m_oxygenChange * m_count;
+		EcosystemAtmosphere.Co =+ m_coChange * m_count;
 	}
 }
 
