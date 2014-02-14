@@ -5,16 +5,16 @@ public class EcosystemEntityTree
 {
 	//properties
 	private static int m_count = 0;
-	private static double m_coConsumption = 12;
-	private static double m_oxygenRelease = 9;
+	private static double m_coChange = -12;
+	private static double m_oxygenChange = 9;
 
 	public class TreeModel : MonoBehaviour
 	{
-		public Rigidbody treePrefab;
+		//public Rigidbody treePrefab;
 		// Use this for initialization
 		void Start ()
 		{
-			Instantiate (treePrefab);
+			//Instantiate (treePrefab);
 		}
 		
 		// Update is called once per frame
@@ -44,21 +44,21 @@ public class EcosystemEntityTree
 		}
 	}
 
-	public static double CoConsumption {
+	public static double CoChange {
 		get{
-			return m_coConsumption;
+			return m_coChange;
 		}
 		set{
-			m_coConsumption = value;		
+			m_coChange = value;		
 		}
 	}
 	
-	public static double OxygenRelease {
+	public static double OxygenChange {
 		get{
-			return m_oxygenRelease;
+			return m_oxygenChange;
 		}
 		set{
-			m_oxygenRelease = value;		
+			m_oxygenChange = value;		
 		}
 	}
 
@@ -72,6 +72,12 @@ public class EcosystemEntityTree
 	void Update ()
 	{
 
+	}
+
+	public static void EcoUpdate ()
+	{
+		EcosystemAtmosphere.Oxygen += m_oxygenChange * m_count;
+		EcosystemAtmosphere.Co += m_coChange * m_count;
 	}
 }
 

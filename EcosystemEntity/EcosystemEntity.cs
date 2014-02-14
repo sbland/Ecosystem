@@ -25,5 +25,12 @@ public class EcosystemEntity : MonoBehaviour
 		{
 	
 		}
+
+
+	public static void EcoUpdate ()
+	{
+		//EcosystemAtmosphere.Oxygen -= m_oxygenConsumption * m_count;
+		//EcosystemAtmosphere.Co += m_coRelease * m_count;
+	}
 }
 
