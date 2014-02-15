@@ -79,8 +79,8 @@ public class EcosystemEntityTree
 
 	public static void EcoUpdate ()
 	{
-		EcosystemAtmosphere.Oxygen =+ m_oxygenChange * m_count;
-		EcosystemAtmosphere.Co =+ m_coChange * m_count;
+		EcosystemAtmosphere.Oxygen += m_oxygenChange * m_count;
+		EcosystemAtmosphere.Co += m_coChange * m_count;
 	}
 }
 

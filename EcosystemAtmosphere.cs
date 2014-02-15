@@ -51,13 +51,7 @@ public static class EcosystemAtmosphere
 		}
 		set
 		{
-			Debug.Log(value);
-			if(value>=0){
-				m_oxygen = value;
-			}else{
-				m_oxygen = 0;
-			}
-			
+			m_oxygen = value;
 		}
 	}
 

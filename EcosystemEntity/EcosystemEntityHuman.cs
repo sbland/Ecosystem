@@ -64,7 +64,9 @@ public class EcosystemEntityHuman
 
 	public static void EcoUpdate ()
 	{
-		EcosystemAtmosphere.Oxygen += m_oxygenChange * m_count;
+		double oxyResult = EcosystemAtmosphere.Oxygen + m_oxygenChange * m_count;
+		Debug.Log (oxyResult);
+		EcosystemAtmosphere.Oxygen =oxyResult;
 		EcosystemAtmosphere.Co += m_coChange * m_count;
 	}
 }

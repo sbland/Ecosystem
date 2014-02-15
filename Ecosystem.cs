@@ -121,22 +121,22 @@ public class Ecosystem : MonoBehaviour {
 	/// </summary>
 	void EcosystemPostCalculations()
 	{
-		//Rigidbody treeInstance;
-		//Rigidbody humanInstance;
+		Rigidbody treeInstance;
+		Rigidbody humanInstance;
 		//Rigidbody cowInstance;
 
 
 		//Create Tree
 		if (EcosystemAtmosphere.Co > 90) {
-			//Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
-			//treeInstance = Instantiate (treeModel, spawnPlane.position + position, spawnPlane.rotation) as Rigidbody;
+			Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
+			treeInstance = Instantiate (treeModel, spawnPlane.position + position, spawnPlane.rotation) as Rigidbody;
 			EcosystemEntityTree.Count++;
 		}
 
 		//Create Human
 		if (EcosystemAtmosphere.Oxygen > 90) {
-			//Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
-			//humanInstance = Instantiate (humanModel, spawnPlane.position + position, spawnPlane.rotation) as Rigidbody;
+			Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
+			humanInstance = Instantiate (humanModel, spawnPlane.position + position, spawnPlane.rotation) as Rigidbody;
 			EcosystemEntityHuman.Count++;
 		}
 		//Create Cow
