@@ -38,6 +38,8 @@ public static class EcosystemAtmosphere
 		{
 			if(value>=0){
 				m_co = value;
+			}else{
+				m_co = 0;
 			}
 
 		}
@@ -51,7 +53,11 @@ public static class EcosystemAtmosphere
 		}
 		set
 		{
-			m_oxygen = value;
+			if(value>=0){
+				m_oxygen = value;
+			}else{
+				m_oxygen = 0;
+			}
 		}
 	}
 

@@ -5,8 +5,8 @@ public class EcosystemEntityTree
 {
 	//properties
 	private static int m_count = 0;
-	private static double m_coChange = -20;
-	private static double m_oxygenChange = 20;
+	private static double m_coChange = 20;
+	private static double m_oxygenChange = -20;
 
 	public class TreeModel : MonoBehaviour
 	{
@@ -28,9 +28,7 @@ public class EcosystemEntityTree
 	//Constructor
 	public EcosystemEntityTree()
 	{
-
 		Count ++;
-
 	}
 
 
@@ -65,22 +63,15 @@ public class EcosystemEntityTree
 		}
 	}
 
-	// Use this for initialization
-	void Start ()
-	{
-	
-	}
 
-	// Update is called once per frame
-	void Update ()
+	public static double[] EcoUpdate ()
 	{
-
-	}
-
-	public static void EcoUpdate ()
-	{
-		EcosystemAtmosphere.Oxygen += m_oxygenChange * m_count;
-		EcosystemAtmosphere.Co += m_coChange * m_count;
+		double[] result = new double[2];
+		
+		result[0] = m_oxygenChange * m_count;
+		result[1] = m_coChange * m_count;
+		
+		return result;
 	}
 }
 
