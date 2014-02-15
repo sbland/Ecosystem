@@ -1,42 +1,26 @@
 using UnityEngine;
 using System.Collections;
 
-public class EcosystemEntityCow : EcosystemEntity
+public class EcosystemEntityCow
 {
-
 	//properties
 	private static int m_count = 0;
-	private static double m_oxygenConsumption = 14;
-	private static double m_coRelease = 15;
+	private static double m_coChange = -200;
+	private static double m_oxygenChange = 20;
 	
-	public Rigidbody cowPrefab;
-	
-	
-	//methods
-	public static int Count {
-		get{
-			return m_count;
+	public class CowModel : MonoBehaviour
+	{
+		//public Rigidbody treePrefab;
+		// Use this for initialization
+		void Start ()
+		{
+			//Instantiate (treePrefab);
 		}
-		set{
-			m_count = value;		
-		}
-	}
-	
-	public static double OxygenConsumption {
-		get{
-			return m_oxygenConsumption;
-		}
-		set{
-			m_oxygenConsumption = value;		
-		}
-	}
-	
-	public static double coRelease {
-		get{
-			return m_coRelease;
-		}
-		set{
-			m_coRelease = value;		
+		
+		// Update is called once per frame
+		void Update ()
+		{
+			
 		}
 	}
 	
@@ -44,19 +28,50 @@ public class EcosystemEntityCow : EcosystemEntity
 	//Constructor
 	public EcosystemEntityCow()
 	{
-		Count++;
+		Count ++;
 	}
 	
-	// Use this for initialization
-	void Start ()
-	{
-		
+	
+	//property methods
+	public static int Count {
+		get{
+			return m_count;
+		}
+		set{
+			if(value>=0)
+			{
+				m_count = value;
+			}		
+		}
 	}
 	
-	// Update is called once per frame
-	void Update ()
+	public static double CoChange {
+		get{
+			return m_coChange;
+		}
+		set{
+			m_coChange = value;		
+		}
+	}
+	
+	public static double OxygenChange {
+		get{
+			return m_oxygenChange;
+		}
+		set{
+			m_oxygenChange = value;		
+		}
+	}
+	
+	
+	public static double[] EcoUpdate ()
 	{
+		double[] result = new double[2];
 		
+		result[0] = m_oxygenChange * m_count;
+		result[1] = m_coChange * m_count;
+		
+		return result;
 	}
 }
 

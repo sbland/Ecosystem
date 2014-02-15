@@ -5,57 +5,73 @@ public class EcosystemEntityHuman
 {
 	//properties
 	private static int m_count = 0;
-	private static double m_oxygenConsumption = 14;
-	private static double m_coRelease = 15;
-
-	public Rigidbody humanPrefab;
+	private static double m_coChange = -200;
+	private static double m_oxygenChange = 20;
 	
-
-	//methods
+	public class HumanModel : MonoBehaviour
+	{
+		//public Rigidbody treePrefab;
+		// Use this for initialization
+		void Start ()
+		{
+			//Instantiate (treePrefab);
+		}
+		
+		// Update is called once per frame
+		void Update ()
+		{
+			
+		}
+	}
+	
+	
+	//Constructor
+	public EcosystemEntityHuman()
+	{
+		Count ++;
+	}
+	
+	
+	//property methods
 	public static int Count {
 		get{
 			return m_count;
 		}
 		set{
-			m_count = value;		
+			if(value>=0)
+			{
+				m_count = value;
+			}		
 		}
 	}
-
-	public static double OxygenConsumption {
-		get{
-			return m_oxygenConsumption;
-		}
-		set{
-			m_oxygenConsumption = value;		
-		}
-	}
-
-	public static double coRelease {
-		get{
-			return m_coRelease;
-		}
-		set{
-			m_coRelease = value;		
-		}
-	}
-
-
-	//Constructor
-	public EcosystemEntityHuman()
-	{
-		Count++;
-	}
-
-	// Use this for initialization
-	void Start ()
-	{
 	
+	public static double CoChange {
+		get{
+			return m_coChange;
+		}
+		set{
+			m_coChange = value;		
+		}
 	}
+	
+	public static double OxygenChange {
+		get{
+			return m_oxygenChange;
+		}
+		set{
+			m_oxygenChange = value;		
+		}
+	}
+	
 
-	// Update is called once per frame
-	void Update ()
+	public static double[] EcoUpdate ()
 	{
+		double[] result = new double[2];
 
+		result[0] = m_oxygenChange * m_count;
+		result[1] = m_coChange * m_count;
+
+		return result;
 	}
 }
 
