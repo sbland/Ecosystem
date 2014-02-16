@@ -8,14 +8,19 @@ public class EcosystemEntityHuman : EcosystemEntity
 	private static double m_coChange = 10;
 	private static double m_oxygenChange = -15;
 
-	private GameObject humanModel = GameObject.Find("HumanPrefab");
+	private static string prefabName = "HumanPrefab";
+	private static string tagName = "ecosystemHuman";
+	
+	
+	private GameObject model = GameObject.Find(prefabName);
 	private GameObject spawnPlane = GameObject.Find("SpawnPlane");
-
+	
+	static GameObject[] entityList;
 
 	//Constructor
 	public EcosystemEntityHuman()
 	{
-		Count ++;
+		//Count ++;
 	}
 	
 	
@@ -32,19 +37,6 @@ public class EcosystemEntityHuman : EcosystemEntity
 		}
 	}
 
-	//public Rigidbody treePrefab;
-	// Use this for initialization
-	void Start ()
-	{
-		//Instantiate (treePrefab);
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		
-	}
-	
 	public static double CoChange {
 		get{
 			return m_coChange;
@@ -64,14 +56,10 @@ public class EcosystemEntityHuman : EcosystemEntity
 	}
 	
 
-	new public static double[] EcoUpdate ()
+	new public static void EcoUpdate ()
 	{
-		double[] result = new double[2];
-
-		result[0] = m_oxygenChange * m_count;
-		result[1] = m_coChange * m_count;
-
-		return result;
+		entityList = GameObject.FindGameObjectsWithTag (tagName);
+		Count = entityList.Length;
 	}
 
 	public bool Create()
@@ -79,13 +67,27 @@ public class EcosystemEntityHuman : EcosystemEntity
 		Rigidbody humanInstance;
 		Rigidbody spawnPlaneRigid = spawnPlane.rigidbody;
 		Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
-		humanInstance = MonoBehaviour.Instantiate (humanModel, spawnPlaneRigid.position + position, spawnPlaneRigid.rotation) as Rigidbody;
+		humanInstance = MonoBehaviour.Instantiate (model, spawnPlaneRigid.position + position, spawnPlaneRigid.rotation) as Rigidbody;
 
 		EcosystemAtmosphere.OxygenCalc += m_oxygenChange;
 		EcosystemAtmosphere.CoCalc += m_coChange;
 
 		Count++;
 		return true;
+	}
+
+	public bool Remove()
+	{
+		entityList = GameObject.FindGameObjectsWithTag (tagName);
+		
+		if (entityList.Length > 0) {
+			MonoBehaviour.Destroy (entityList [0]);
+			Count--;
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 }
 

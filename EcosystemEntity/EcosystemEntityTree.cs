@@ -5,18 +5,23 @@ public class EcosystemEntityTree : EcosystemEntity
 {
 	//properties
 	private static int m_count = 0;
-	private static double m_coChange = -20;
+	private static double m_coChange = -200;
 	private static double m_oxygenChange = 20;
 
+	private static string prefabName = "TreePrefab";
+	private static string tagName = "ecosystemTrees";
+
 	
-	private GameObject TreeModel = GameObject.Find("TreePrefab");
+	private GameObject model = GameObject.Find(prefabName);
 	private GameObject spawnPlane = GameObject.Find("SpawnPlane");
+
+	static GameObject[] entityList;
 
 
 	//Constructor
 	public EcosystemEntityTree()
 	{
-		Count ++;
+		//Count ++;
 	}
 
 
@@ -52,14 +57,10 @@ public class EcosystemEntityTree : EcosystemEntity
 	}
 
 
-	public static double[] EcoUpdate ()
+	public static void EcoUpdate ()
 	{
-		double[] result = new double[2];
-		
-		result[0] = m_oxygenChange * m_count;
-		result[1] = m_coChange * m_count;
-		
-		return result;
+		entityList = GameObject.FindGameObjectsWithTag (tagName);
+		Count = entityList.Length;
 	}
 
 	public bool Create()
@@ -67,13 +68,27 @@ public class EcosystemEntityTree : EcosystemEntity
 		Rigidbody humanInstance;
 		Rigidbody spawnPlaneRigid = spawnPlane.rigidbody;
 		Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
-		humanInstance = MonoBehaviour.Instantiate (TreeModel, spawnPlaneRigid.position + position, spawnPlaneRigid.rotation) as Rigidbody;
+		humanInstance = MonoBehaviour.Instantiate (model, spawnPlaneRigid.position + position, spawnPlaneRigid.rotation) as Rigidbody;
 
 		EcosystemAtmosphere.OxygenCalc += m_oxygenChange;
 		EcosystemAtmosphere.CoCalc += m_coChange;
 
 		Count++;
 		return true;
+	}
+
+	public bool Remove()
+	{
+		entityList = GameObject.FindGameObjectsWithTag (tagName);
+
+		if (entityList.Length > 0) {
+			MonoBehaviour.Destroy (entityList [0]);
+			Count--;
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 }
 

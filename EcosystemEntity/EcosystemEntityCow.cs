@@ -8,14 +8,19 @@ public class EcosystemEntityCow : EcosystemEntity
 	private static double m_coChange = 15;
 	private static double m_oxygenChange = -5;
 
-	private GameObject CowModel = GameObject.Find("CowPrefab");
+	private static string prefabName = "CowPrefab";
+	private static string tagName = "ecosystemCow";
+	
+	
+	private GameObject model = GameObject.Find(prefabName);
 	private GameObject spawnPlane = GameObject.Find("SpawnPlane");
-
+	
+	static GameObject[] entityList;
 		
 	//Constructor
 	public EcosystemEntityCow()
 	{
-		Count ++;
+		//Count ++;
 	}
 	
 	
@@ -51,14 +56,10 @@ public class EcosystemEntityCow : EcosystemEntity
 	}
 	
 	
-	public static double[] EcoUpdate ()
+	public static void EcoUpdate ()
 	{
-		double[] result = new double[2];
-		
-		result[0] = m_oxygenChange * m_count;
-		result[1] = m_coChange * m_count;
-		
-		return result;
+		entityList = GameObject.FindGameObjectsWithTag (tagName);
+		Count = entityList.Length;
 	}
 
 	public bool Create()
@@ -66,13 +67,27 @@ public class EcosystemEntityCow : EcosystemEntity
 		Rigidbody humanInstance;
 		Rigidbody spawnPlaneRigid = spawnPlane.rigidbody;
 		Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
-		humanInstance = MonoBehaviour.Instantiate (CowModel, spawnPlaneRigid.position + position, spawnPlaneRigid.rotation) as Rigidbody;
+		humanInstance = MonoBehaviour.Instantiate (model, spawnPlaneRigid.position + position, spawnPlaneRigid.rotation) as Rigidbody;
 
 		EcosystemAtmosphere.OxygenCalc += m_oxygenChange;
 		EcosystemAtmosphere.CoCalc += m_coChange;
 
 		Count++;
 		return true;
+	}
+
+	public bool Remove()
+	{
+		entityList = GameObject.FindGameObjectsWithTag (tagName);
+		
+		if (entityList.Length > 0) {
+			MonoBehaviour.Destroy (entityList [0]);
+			Count--;
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 }
 

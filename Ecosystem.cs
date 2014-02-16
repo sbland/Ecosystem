@@ -41,7 +41,7 @@ public class Ecosystem : MonoBehaviour {
 	//properties
 
 	public int updateCount = 0;
-	GameObject[] treeList;
+
 	GameObject[] humanList;
 	GameObject[] cowList;
 
@@ -49,7 +49,7 @@ public class Ecosystem : MonoBehaviour {
 	//objects
 
 
-
+	
 	//--------------------------------------------------------------------------------------------------------
 	// Use this for initialization
 
@@ -95,29 +95,24 @@ public class Ecosystem : MonoBehaviour {
 	// Get entity counts
 	private void EntityCounts()
 	{
-		treeList = GameObject.FindGameObjectsWithTag ("ecosystemTrees");
-		humanList = GameObject.FindGameObjectsWithTag ("ecosystemHuman");
-		cowList = GameObject.FindGameObjectsWithTag ("ecosystemCow");
-		
-		EcosystemEntityTree.Count = treeList.Length;
-		EcosystemEntityHuman.Count = humanList.Length;
-		EcosystemEntityCow.Count = cowList.Length;
+		EcosystemEntityTree.EcoUpdate ();
+		EcosystemEntityHuman.EcoUpdate ();
+		EcosystemEntityCow.EcoUpdate ();
+
 	}
+
+
 	/// <summary>
 	/// Ecosystems the calculations.
 	/// </summary>
 	void EcosystemCalculations()
 	{
-		//EcosystemEntityHuman.EcoUpdate ();
-		//EcosystemEntityTree.EcoUpdate ();
-		//EcosystemEntityCow.EcoUpdate ();
-
-		//EcosystemAtmosphere.Oxygen += EcosystemEntityHuman.EcoUpdate () [0] + EcosystemEntityTree.EcoUpdate () [0];
-		//EcosystemAtmosphere.Co += EcosystemEntityHuman.EcoUpdate () [1] + EcosystemEntityTree.EcoUpdate () [1];
-
 		EcosystemAtmosphere.Oxygen += EcosystemAtmosphere.OxygenCalc;
 		EcosystemAtmosphere.Co += EcosystemAtmosphere.CoCalc;
 
+
+		humanList = GameObject.FindGameObjectsWithTag ("ecosystemHuman");
+		cowList = GameObject.FindGameObjectsWithTag ("ecosystemCow");
 
 		EcosystemPostCalculations();
 	}//End EcosystemCalculations()--------------------------------------------------------------------------------------------------------
@@ -127,36 +122,37 @@ public class Ecosystem : MonoBehaviour {
 	/// </summary>
 	void EcosystemPostCalculations()
 	{
-	
+
+		EcosystemEntityTree tree = new EcosystemEntityTree();
+		EcosystemEntityHuman human = new EcosystemEntityHuman();
+		EcosystemEntityCow cow = new EcosystemEntityCow();
+		
 		//Create Tree
 		if (EcosystemAtmosphere.Co > 90) {
-			EcosystemEntityTree tree = new EcosystemEntityTree();
 			tree.Create();
 		}
 
 		//Create Human
 		if (EcosystemAtmosphere.Oxygen > 90) {
-			EcosystemEntityHuman human = new EcosystemEntityHuman();
 			human.Create();
 		}
 		//Create Cow
 		if (EcosystemAtmosphere.Oxygen > 140) {
-			EcosystemEntityCow cow = new EcosystemEntityCow();
 			cow.Create();
 		}
 
 		//Destroy Tree
 		if (EcosystemAtmosphere.Co < 8) {
-			EcosystemEntityTree.Count--;
+			tree.Remove();
 		}
 		
 		//Destroy Human
 		if (EcosystemAtmosphere.Oxygen < 8) {
-			EcosystemEntityHuman.Count--;
+			human.Remove();
 		}
 		//Destroy Cow
 		if (EcosystemAtmosphere.Oxygen < 15) {
-			//EcosystemEntityCow.Count--;
+			cow.Remove();
 		}
 
 
