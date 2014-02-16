@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class EcosystemEntity : MonoBehaviour
+public class EcosystemEntity// : MonoBehaviour
 {
 	private int m_count = 0;
 
@@ -25,5 +25,12 @@ public class EcosystemEntity : MonoBehaviour
 		{
 	
 		}
+
+
+	public static void EcoUpdate ()
+	{
+		//EcosystemAtmosphere.Oxygen -= m_oxygenConsumption * m_count;
+		//EcosystemAtmosphere.Co += m_coRelease * m_count;
+	}
 }
 

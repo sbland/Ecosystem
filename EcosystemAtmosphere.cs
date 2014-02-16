@@ -27,18 +27,10 @@ public static class EcosystemAtmosphere
 	private static double m_hydrogen;	//Ar
 	private static double m_krypton;	//Ar
 
-	
-	public	static double Oxygen
-	{
-		get
-		{
-			return m_oxygen;
-		}
-		set
-		{
-			m_oxygen = value;
-		}
-	}
+	public static double OxygenCalc = 0;
+	public static double CoCalc = 0;
+
+
 
 	public	static double Co
 	{
@@ -48,7 +40,28 @@ public static class EcosystemAtmosphere
 		}
 		set
 		{
-			m_co = value;
+			if(value>=0){
+				m_co = value;
+			}else{
+				m_co = 0;
+			}
+
+		}
+	}
+
+	public	static double Oxygen
+	{
+		get
+		{
+			return m_oxygen;
+		}
+		set
+		{
+			if(value>=0){
+				m_oxygen = value;
+			}else{
+				m_oxygen = 0;
+			}
 		}
 	}
 
@@ -60,7 +73,10 @@ public static class EcosystemAtmosphere
 		}
 		set
 		{
+			if(value>=0)
+			{
 			m_nitrogen = value;
+			}
 		}
 	}
 	
@@ -72,7 +88,10 @@ public static class EcosystemAtmosphere
 		}
 		set
 		{
+			if(value>=0)
+			{
 			m_argon = value;
+			}
 		}
 	}
 
