@@ -27,7 +27,12 @@ public class Interact : MonoBehaviour {
 			EcosystemEntityCow cow = new EcosystemEntityCow();
 			cow.Create();
 		}
-		
+
+
+		if (Input.GetKeyDown (KeyCode.KeypadPlus)) {
+			Inventory inventory = new Inventory();
+			inventory.removeItem();
+		}
 		
 	}
 
@@ -77,9 +82,9 @@ public class Interact : MonoBehaviour {
 
 		if (Input.GetKeyDown (Controls.use)) {
 			Inventory inventory = new Inventory();
-			inventory.addItem(active.gameObject);		
-			inventory.removeItem(active.gameObject);
+			inventory.addItem(active.gameObject);	
 				}
+
 	}
 
 	void OnTriggerExit (Collider active)
