@@ -27,7 +27,11 @@ public static class EcosystemAtmosphere
 	private static double m_hydrogen;	//Ar
 	private static double m_krypton;	//Ar
 
-	
+	public static double OxygenCalc = 0;
+	public static double CoCalc = 0;
+
+
+
 	public	static double Co
 	{
 		get

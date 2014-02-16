@@ -34,7 +34,7 @@ public class Ecosystem : MonoBehaviour {
 	public Rigidbody treeModel;
 	public Rigidbody humanModel;
 	public Rigidbody cowModel;
-	public Transform spawnPlane;
+	public static Transform spawnPlane;
 
 	public string saveLocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\Ecosystem";
 
@@ -126,27 +126,29 @@ public class Ecosystem : MonoBehaviour {
 	{
 		Rigidbody treeInstance;
 		Rigidbody humanInstance;
-		//Rigidbody cowInstance;
+		Rigidbody cowInstance;
 
 
 		//Create Tree
 		if (EcosystemAtmosphere.Co > 90) {
 			Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
-			treeInstance = Instantiate (treeModel, spawnPlane.position + position, spawnPlane.rotation) as Rigidbody;
+			//treeInstance = Instantiate (treeModel, spawnPlane.position + position, spawnPlane.rotation) as Rigidbody;
 			EcosystemEntityTree.Count++;
 		}
 
 		//Create Human
 		if (EcosystemAtmosphere.Oxygen > 90) {
-			Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
-			humanInstance = Instantiate (humanModel, spawnPlane.position + position, spawnPlane.rotation) as Rigidbody;
-			EcosystemEntityHuman.Count++;
+			//Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
+			//humanInstance = Instantiate (humanModel, spawnPlane.position + position, spawnPlane.rotation) as Rigidbody;
+			//EcosystemEntityHuman.Count++;
+			EcosystemEntityHuman human = new EcosystemEntityHuman();
+			human.Create();
 		}
 		//Create Cow
 		if (EcosystemAtmosphere.Oxygen > 140) {
-			//Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
+			Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
 			//cowInstance = Instantiate (cowModel, spawnPlane.position + position, spawnPlane.rotation) as Rigidbody;
-			//EcosystemEntityCow.Count++;
+			EcosystemEntityCow.Count++;
 		}
 
 		//Destroy Tree
