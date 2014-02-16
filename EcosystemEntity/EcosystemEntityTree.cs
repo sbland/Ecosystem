@@ -8,22 +8,10 @@ public class EcosystemEntityTree
 	private static double m_coChange = 20;
 	private static double m_oxygenChange = -20;
 
-	public class TreeModel : MonoBehaviour
-	{
-		//public Rigidbody treePrefab;
-		// Use this for initialization
-		void Start ()
-		{
-			//Instantiate (treePrefab);
-		}
-		
-		// Update is called once per frame
-		void Update ()
-		{
-			
-		}
-	}
-	 
+	
+	private GameObject TreeModel = GameObject.Find("TreePrefab");
+	private GameObject spawnPlane = GameObject.Find("SpawnPlane");
+
 
 	//Constructor
 	public EcosystemEntityTree()
@@ -72,6 +60,17 @@ public class EcosystemEntityTree
 		result[1] = m_coChange * m_count;
 		
 		return result;
+	}
+
+	public bool Create()
+	{
+		Rigidbody humanInstance;
+		Rigidbody spawnPlaneRigid = spawnPlane.rigidbody;
+		Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
+		humanInstance = MonoBehaviour.Instantiate (TreeModel, spawnPlaneRigid.position + position, spawnPlaneRigid.rotation) as Rigidbody;
+		
+		Count++;
+		return true;
 	}
 }
 

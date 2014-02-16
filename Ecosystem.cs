@@ -34,7 +34,7 @@ public class Ecosystem : MonoBehaviour {
 	public Rigidbody treeModel;
 	public Rigidbody humanModel;
 	public Rigidbody cowModel;
-	public static Transform spawnPlane;
+	public Transform spawnPlane;
 
 	public string saveLocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\Ecosystem";
 
@@ -124,31 +124,22 @@ public class Ecosystem : MonoBehaviour {
 	/// </summary>
 	void EcosystemPostCalculations()
 	{
-		Rigidbody treeInstance;
-		Rigidbody humanInstance;
-		Rigidbody cowInstance;
-
-
+	
 		//Create Tree
 		if (EcosystemAtmosphere.Co > 90) {
-			Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
-			//treeInstance = Instantiate (treeModel, spawnPlane.position + position, spawnPlane.rotation) as Rigidbody;
-			EcosystemEntityTree.Count++;
+			EcosystemEntityTree tree = new EcosystemEntityTree();
+			tree.Create();
 		}
 
 		//Create Human
 		if (EcosystemAtmosphere.Oxygen > 90) {
-			//Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
-			//humanInstance = Instantiate (humanModel, spawnPlane.position + position, spawnPlane.rotation) as Rigidbody;
-			//EcosystemEntityHuman.Count++;
 			EcosystemEntityHuman human = new EcosystemEntityHuman();
 			human.Create();
 		}
 		//Create Cow
 		if (EcosystemAtmosphere.Oxygen > 140) {
-			Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
-			//cowInstance = Instantiate (cowModel, spawnPlane.position + position, spawnPlane.rotation) as Rigidbody;
-			EcosystemEntityCow.Count++;
+			EcosystemEntityCow cow = new EcosystemEntityCow();
+			cow.Create();
 		}
 
 		//Destroy Tree

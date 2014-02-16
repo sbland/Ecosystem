@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class EcosystemEntity : MonoBehaviour
+public class EcosystemEntity// : MonoBehaviour
 {
 	private int m_count = 0;
 

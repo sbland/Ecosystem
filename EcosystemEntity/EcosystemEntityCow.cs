@@ -7,24 +7,11 @@ public class EcosystemEntityCow
 	private static int m_count = 0;
 	private static double m_coChange = -200;
 	private static double m_oxygenChange = 20;
-	
-	public class CowModel : MonoBehaviour
-	{
-		//public Rigidbody treePrefab;
-		// Use this for initialization
-		void Start ()
-		{
-			//Instantiate (treePrefab);
-		}
+
+	private GameObject CowModel = GameObject.Find("CowPrefab");
+	private GameObject spawnPlane = GameObject.Find("SpawnPlane");
+
 		
-		// Update is called once per frame
-		void Update ()
-		{
-			
-		}
-	}
-	
-	
 	//Constructor
 	public EcosystemEntityCow()
 	{
@@ -72,6 +59,17 @@ public class EcosystemEntityCow
 		result[1] = m_coChange * m_count;
 		
 		return result;
+	}
+
+	public bool Create()
+	{
+		Rigidbody humanInstance;
+		Rigidbody spawnPlaneRigid = spawnPlane.rigidbody;
+		Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
+		humanInstance = MonoBehaviour.Instantiate (CowModel, spawnPlaneRigid.position + position, spawnPlaneRigid.rotation) as Rigidbody;
+		
+		Count++;
+		return true;
 	}
 }
 

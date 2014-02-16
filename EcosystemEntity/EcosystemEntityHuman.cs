@@ -1,24 +1,21 @@
 using UnityEngine;
 using System.Collections;
 
-public class EcosystemEntityHuman// : ScriptableObject// : EcosystemEntity
+public class EcosystemEntityHuman : EcosystemEntity
 {
 	//properties
 	private static int m_count = 0;
 	private static double m_coChange = -200;
 	private static double m_oxygenChange = 20;
 
-	//private EcosystemEntityHuman self = new EcosystemEntityHuman();
-	//public Rigidbody HumanModel;
-	public GameObject humanModel = GameObject.Find("HumanPrefab");
-
+	private GameObject humanModel = GameObject.Find("HumanPrefab");
+	private GameObject spawnPlane = GameObject.Find("SpawnPlane");
 
 
 	//Constructor
 	public EcosystemEntityHuman()
 	{
 		Count ++;
-		//humanModel = HumanModel;
 	}
 	
 	
@@ -80,9 +77,11 @@ public class EcosystemEntityHuman// : ScriptableObject// : EcosystemEntity
 	public bool Create()
 	{
 		Rigidbody humanInstance;
+		Rigidbody spawnPlaneRigid = spawnPlane.rigidbody;
 		Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
-		humanInstance = MonoBehaviour.Instantiate (humanModel, Ecosystem.spawnPlane.position + position, Ecosystem.spawnPlane.rotation) as Rigidbody;
-		EcosystemEntityHuman.Count++;
+		humanInstance = MonoBehaviour.Instantiate (humanModel, spawnPlaneRigid.position + position, spawnPlaneRigid.rotation) as Rigidbody;
+
+		Count++;
 		return true;
 	}
 }
