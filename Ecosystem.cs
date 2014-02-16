@@ -112,8 +112,11 @@ public class Ecosystem : MonoBehaviour {
 		//EcosystemEntityTree.EcoUpdate ();
 		//EcosystemEntityCow.EcoUpdate ();
 
-		EcosystemAtmosphere.Oxygen += EcosystemEntityHuman.EcoUpdate () [0] + EcosystemEntityTree.EcoUpdate () [0];
-		EcosystemAtmosphere.Co += EcosystemEntityHuman.EcoUpdate () [1] + EcosystemEntityTree.EcoUpdate () [1];
+		//EcosystemAtmosphere.Oxygen += EcosystemEntityHuman.EcoUpdate () [0] + EcosystemEntityTree.EcoUpdate () [0];
+		//EcosystemAtmosphere.Co += EcosystemEntityHuman.EcoUpdate () [1] + EcosystemEntityTree.EcoUpdate () [1];
+
+		EcosystemAtmosphere.Oxygen += EcosystemAtmosphere.OxygenCalc;
+		EcosystemAtmosphere.Co += EcosystemAtmosphere.CoCalc;
 
 
 		EcosystemPostCalculations();

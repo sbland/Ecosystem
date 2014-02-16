@@ -1,12 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
-public class EcosystemEntityTree
+public class EcosystemEntityTree : EcosystemEntity
 {
 	//properties
 	private static int m_count = 0;
-	private static double m_coChange = 20;
-	private static double m_oxygenChange = -20;
+	private static double m_coChange = -20;
+	private static double m_oxygenChange = 20;
 
 	
 	private GameObject TreeModel = GameObject.Find("TreePrefab");
@@ -68,7 +68,10 @@ public class EcosystemEntityTree
 		Rigidbody spawnPlaneRigid = spawnPlane.rigidbody;
 		Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
 		humanInstance = MonoBehaviour.Instantiate (TreeModel, spawnPlaneRigid.position + position, spawnPlaneRigid.rotation) as Rigidbody;
-		
+
+		EcosystemAtmosphere.OxygenCalc += m_oxygenChange;
+		EcosystemAtmosphere.CoCalc += m_coChange;
+
 		Count++;
 		return true;
 	}

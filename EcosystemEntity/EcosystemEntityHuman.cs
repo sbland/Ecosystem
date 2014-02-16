@@ -5,8 +5,8 @@ public class EcosystemEntityHuman : EcosystemEntity
 {
 	//properties
 	private static int m_count = 0;
-	private static double m_coChange = -200;
-	private static double m_oxygenChange = 20;
+	private static double m_coChange = 10;
+	private static double m_oxygenChange = -15;
 
 	private GameObject humanModel = GameObject.Find("HumanPrefab");
 	private GameObject spawnPlane = GameObject.Find("SpawnPlane");
@@ -80,6 +80,9 @@ public class EcosystemEntityHuman : EcosystemEntity
 		Rigidbody spawnPlaneRigid = spawnPlane.rigidbody;
 		Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
 		humanInstance = MonoBehaviour.Instantiate (humanModel, spawnPlaneRigid.position + position, spawnPlaneRigid.rotation) as Rigidbody;
+
+		EcosystemAtmosphere.OxygenCalc += m_oxygenChange;
+		EcosystemAtmosphere.CoCalc += m_coChange;
 
 		Count++;
 		return true;

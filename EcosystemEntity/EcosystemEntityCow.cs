@@ -1,12 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
-public class EcosystemEntityCow
+public class EcosystemEntityCow : EcosystemEntity
 {
 	//properties
 	private static int m_count = 0;
-	private static double m_coChange = -200;
-	private static double m_oxygenChange = 20;
+	private static double m_coChange = 15;
+	private static double m_oxygenChange = -5;
 
 	private GameObject CowModel = GameObject.Find("CowPrefab");
 	private GameObject spawnPlane = GameObject.Find("SpawnPlane");
@@ -67,7 +67,10 @@ public class EcosystemEntityCow
 		Rigidbody spawnPlaneRigid = spawnPlane.rigidbody;
 		Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
 		humanInstance = MonoBehaviour.Instantiate (CowModel, spawnPlaneRigid.position + position, spawnPlaneRigid.rotation) as Rigidbody;
-		
+
+		EcosystemAtmosphere.OxygenCalc += m_oxygenChange;
+		EcosystemAtmosphere.CoCalc += m_coChange;
+
 		Count++;
 		return true;
 	}
