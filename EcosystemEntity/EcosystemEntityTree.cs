@@ -89,6 +89,8 @@ public class EcosystemEntityTree : EcosystemEntity
 		if (entityList.Length > 0) {
 			MonoBehaviour.Destroy (entityList [entityList.Length-1]);
 			Count--;
+			EcosystemAtmosphere.OxygenCalc -= m_oxygenChange;
+			EcosystemAtmosphere.CoCalc -= m_coChange;
 			return true;
 		} else {
 			return false;
@@ -103,6 +105,8 @@ public class EcosystemEntityTree : EcosystemEntity
 		if (entityList.Length > 0) {
 			MonoBehaviour.Destroy (active.gameObject);
 			Count--;
+			EcosystemAtmosphere.OxygenCalc -= m_oxygenChange;
+			EcosystemAtmosphere.CoCalc -= m_coChange;
 			return true;
 		} else {
 			return false;

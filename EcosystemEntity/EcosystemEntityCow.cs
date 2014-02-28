@@ -6,7 +6,7 @@ public class EcosystemEntityCow : EcosystemEntity
 	//properties
 	private static int m_count = 0;
 	private static double m_coChange = 15;
-	private static double m_oxygenChange = -5;
+	private static double m_oxygenChange = -10;
 	
 	private static string prefabName = "CowPrefab";
 	private static string tagName = "ecosystemCow";
@@ -88,6 +88,8 @@ public class EcosystemEntityCow : EcosystemEntity
 		if (entityList.Length > 0) {
 			MonoBehaviour.Destroy (entityList [entityList.Length-1]);
 			Count--;
+			EcosystemAtmosphere.OxygenCalc -= m_oxygenChange;
+			EcosystemAtmosphere.CoCalc -= m_coChange;
 			return true;
 		} else {
 			return false;
@@ -102,6 +104,8 @@ public class EcosystemEntityCow : EcosystemEntity
 		if (entityList.Length > 0) {
 			MonoBehaviour.Destroy (active.gameObject);
 			Count--;
+			EcosystemAtmosphere.OxygenCalc -= m_oxygenChange;
+			EcosystemAtmosphere.CoCalc -= m_coChange;
 			return true;
 		} else {
 			return false;

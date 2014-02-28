@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Inventory// : MonoBehaviour
 {
-
+	//
 	public static int bagSize = 10;
 	public static int itemCount = 0;
 

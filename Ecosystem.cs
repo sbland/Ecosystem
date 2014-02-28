@@ -110,7 +110,6 @@ public class Ecosystem : MonoBehaviour {
 		EcosystemAtmosphere.Oxygen += EcosystemAtmosphere.OxygenCalc;
 		EcosystemAtmosphere.Co += EcosystemAtmosphere.CoCalc;
 
-
 		humanList = GameObject.FindGameObjectsWithTag ("ecosystemHuman");
 		cowList = GameObject.FindGameObjectsWithTag ("ecosystemCow");
 
