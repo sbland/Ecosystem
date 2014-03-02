@@ -1,3 +1,29 @@
+/*************************************************************************
+  Ecosystem Cow Class
+  Copyright (C), SBland.co.uk
+ -------------------------------------------------------------------------
+
+  Date:02/03/14
+  Description: Child class of Ecosystem Entity
+
+ ------------------------------------------------------------------------
+  History:
+
+ ------------------------------------------------------------------------
+ Contents
+	1.	Imports
+	2.	Variables
+		2.1.
+	3.	Standard Functions
+		3.1. 	
+	4.	Unique Functions
+		4.1.	
+	5.	Debug functions
+		5.1.	
+		
+ *************************************************************************/
+
+
 using UnityEngine;
 using System.Collections;
 

@@ -1,13 +1,43 @@
-﻿using UnityEngine;
+﻿/*************************************************************************
+  Interact Class
+  Copyright (C), SBland.co.uk
+ -------------------------------------------------------------------------
+
+  Date:09/11/13
+  Description: Controls user interaction
+
+ ------------------------------------------------------------------------
+  History:30/12/13 - Transfered to C#
+
+ ------------------------------------------------------------------------
+ Contents
+	1.	Imports
+	2.	Variables
+		2.1.
+	3.	Standard Functions
+		3.1. 	
+	4.	Unique Functions
+		4.1.	
+	5.	Debug functions
+		5.1.	
+
+
+*************************************************************************/
+
+using UnityEngine;
 using System.Collections;
 
 public class Interact : MonoBehaviour {
 
 
+	
+	public Inventory inventory;
+	public Controls controls;
+
 
 	// Use this for initialization
 	void Start () {
-	
+		inventory = new Inventory();
 	}
 	
 	// Update is called once per frame
@@ -29,8 +59,7 @@ public class Interact : MonoBehaviour {
 		}
 
 
-		if (Input.GetKeyDown (KeyCode.KeypadPlus)) {
-			Inventory inventory = new Inventory();
+		if (Input.GetKeyDown (controls.drop)) {
 			inventory.removeItem();
 		}
 		
@@ -80,10 +109,11 @@ public class Interact : MonoBehaviour {
 			active.renderer.material.color = Color.red;
 		}
 
-		if (Input.GetKeyDown (Controls.use)) {
-			Inventory inventory = new Inventory();
+		if (Input.GetKeyDown (controls.use)) {
+			Debug.Log("Adding " + active.name + " to the inventory");
 			inventory.addItem(active.gameObject);	
 				}
+
 
 	}
 

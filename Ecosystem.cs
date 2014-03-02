@@ -10,9 +10,31 @@
   History:30/12/13 - Transfered to C#
 
 	Rewriting Ecosystem
-*************************************************************************/
+
+ ------------------------------------------------------------------------
+ Contents
+	1.	Imports
+	2.	Variables
+		2.1.	Adustable Variables
+		2.2.	Rigidbodies
+		2.3.	Settings
+	3.	Standard Functions
+		3.1. 	Start()
+		3.2.	Update()
+		3.3.	Initialization()
+	4.	Unique Functions
+		4.1.	EntityCounts()
+		4.2.	EcosystemCalculations()
+	5.	Debug functions
+		5.1.	EcosystemConsoleLog()
+		5.2.	EcosystemDataLog()
+		
+ *************************************************************************/
 
 
+
+
+//1// IMPORTS
 using UnityEngine;
 using System.Collections;
 using System.Xml;
@@ -22,37 +44,31 @@ using System.IO;
 
 
 public class Ecosystem : MonoBehaviour {
-
-	//Input (User)
+//2// VARIABLES
+	//2.1// Input (User)
 	public int updateRate = 500;
+	public int updateCount = 0;
 
 	public double initialOxygen = 10;
 	public double initialCo = 10;
 	public double initialTemperature = 27;
 	public double initialHumidity = 45;
 
+	//2.2// Rigidbodys
 	public Rigidbody treeModel;
 	public Rigidbody humanModel;
 	public Rigidbody cowModel;
 	public Transform spawnPlane;
 
+	//2.3//
 	public string saveLocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\Ecosystem";
-
-	//properties
-
-	public int updateCount = 0;
-
-	GameObject[] humanList;
-	GameObject[] cowList;
-
 	string dir;
-	//objects
-
-
-	
 	//--------------------------------------------------------------------------------------------------------
-	// Use this for initialization
 
+//3// STANDARD FUNCTIONS
+
+
+	//3.1// Use this for initialization
 	void Start () {
 		Initialization ();
 		EntityCounts();
@@ -61,7 +77,7 @@ public class Ecosystem : MonoBehaviour {
 
 	}//End Start()--------------------------------------------------------------------------------------------------------
 
-
+	//3.2//
 	// Update is called once per frame
 	void Update () {
 
@@ -78,10 +94,8 @@ public class Ecosystem : MonoBehaviour {
 
 	}//End Update()--------------------------------------------------------------------------------------------------------
 
-
-	/// <summary>
+	//3.3//
 	/// Initialize ecosystem variables to user in/put;
-	/// </summary>
 	private void Initialization()
 	{
 		//set values to user input
@@ -92,7 +106,9 @@ public class Ecosystem : MonoBehaviour {
 		dir = saveLocation + "\\saveTest_" + System.DateTime.Now.ToString("HHmm_d_M_yy") + ".txt";
 	}//End Initialization()--------------------------------------------------------------------------------------------------------
 
-	// Get entity counts
+//4// UNIQUE FUNCTIONS
+	//4.1//
+	// Run entity Ecoupdate functions
 	private void EntityCounts()
 	{
 		EcosystemEntityTree.EcoUpdate ();
@@ -101,24 +117,21 @@ public class Ecosystem : MonoBehaviour {
 
 	}
 
-
-	/// <summary>
+	//4.2//
 	/// Ecosystems the calculations.
-	/// </summary>
 	void EcosystemCalculations()
 	{
 		EcosystemAtmosphere.Oxygen += EcosystemAtmosphere.OxygenCalc;
 		EcosystemAtmosphere.Co += EcosystemAtmosphere.CoCalc;
 
-		humanList = GameObject.FindGameObjectsWithTag ("ecosystemHuman");
-		cowList = GameObject.FindGameObjectsWithTag ("ecosystemCow");
+		//humanList = GameObject.FindGameObjectsWithTag ("ecosystemHuman");
+		//cowList = GameObject.FindGameObjectsWithTag ("ecosystemCow");
 
 		EcosystemPostCalculations();
-	}//End EcosystemCalculations()--------------------------------------------------------------------------------------------------------
+	}
 
-	/// <summary>
+	//4.3//
 	/// Ecosystems the post calculations.
-	/// </summary>
 	void EcosystemPostCalculations()
 	{
 
@@ -153,25 +166,17 @@ public class Ecosystem : MonoBehaviour {
 		if (EcosystemAtmosphere.Oxygen < 15) {
 			cow.Remove();
 		}
+	}
 
-
-
-
-	}// End EcosystemPostCalculations()--------------------------------------------------------------------------------------------------------
-
-
-	/// <summary>
-	/// Ecosystems the console log.
-	/// </summary>
+//5// DEBUG FUNCTIONS
+	//5.1// console log.
 	void EcosystemConsoleLog()
 	{
 
-	}// End EcosystemConsoleLog()--------------------------------------------------------------------------------------------------------
+	}
 
-	/// <summary>
-	/// Ecosystem data Log
+	//5.2//
 	/// -Logs data to an xml file
-	/// </summary>
 	void EcosystemDataLog()
 	{
 		//File Write Test]
@@ -182,5 +187,5 @@ public class Ecosystem : MonoBehaviour {
 			File.AppendAllText(dir, printme[i]);
 		}
 
-	}// End EcosystemDataLog()--------------------------------------------------------------------------------------------------------
+	}
 }
