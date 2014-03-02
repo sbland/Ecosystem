@@ -1,10 +1,10 @@
 /*************************************************************************
-  Ecosystem Entity Class
+  Ecosystem Cow Class
   Copyright (C), SBland.co.uk
  -------------------------------------------------------------------------
 
   Date:02/03/14
-  Description: Parent entity class
+  Description: Child class of Ecosystem Entity
 
  ------------------------------------------------------------------------
   History:
@@ -27,15 +27,15 @@
 using UnityEngine;
 using System.Collections;
 
-public class EcosystemEntity
+public class EcosystemEntityCow : EcosystemEntity
 {
 	//properties
 	private static int m_count = 0;
-	private static double m_coChange;// = 15;
-	private static double m_oxygenChange;// = -5;
+	private static double m_coChange = 15;
+	private static double m_oxygenChange = -10;
 	
-	private static string prefabName = null;// = "CowPrefab";
-	private static string tagName = null;// = "ecosystemCow";
+	private static string prefabName = "CowPrefab";
+	private static string tagName = "ecosystemCow";
 	
 	
 	private GameObject model = GameObject.Find(prefabName);
@@ -44,14 +44,14 @@ public class EcosystemEntity
 	static GameObject[] entityList;
 	
 	//Constructor
-	public EcosystemEntity()
+	public EcosystemEntityCow()
 	{
 		//Count ++;
 	}
 	
 	
 	//property methods
-	public static int Count {
+	new public static int Count {
 		get{
 			return m_count;
 		}
@@ -63,7 +63,7 @@ public class EcosystemEntity
 		}
 	}
 	
-	public static double CoChange {
+	new public static double CoChange {
 		get{
 			return m_coChange;
 		}
@@ -72,7 +72,7 @@ public class EcosystemEntity
 		}
 	}
 	
-	public static double OxygenChange {
+	new public static double OxygenChange {
 		get{
 			return m_oxygenChange;
 		}
@@ -82,22 +82,22 @@ public class EcosystemEntity
 	}
 	
 	
-	/*public static void EcoUpdate ()
+	public static void EcoUpdate ()
 	{
 		entityList = GameObject.FindGameObjectsWithTag (tagName);
 		Count = entityList.Length;
-	}*/
+	}
 	
-	public bool Create()
+	new public bool Create()
 	{
 		if (model != null) {
 			Rigidbody newInstance;
 			Rigidbody spawnPlaneRigid = spawnPlane.rigidbody;
 			Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
-			newInstance = MonoBehaviour.Instantiate (this.model, spawnPlaneRigid.position + position, spawnPlaneRigid.rotation) as Rigidbody;
+			newInstance = MonoBehaviour.Instantiate (model, spawnPlaneRigid.position + position, spawnPlaneRigid.rotation) as Rigidbody;
 			
-			EcosystemAtmosphere.OxygenCalc += m_oxygenChange;
-			EcosystemAtmosphere.CoCalc += m_coChange;
+			Ecosystem.atmosphere.OxygenCalc += m_oxygenChange;
+			Ecosystem.atmosphere.CoCalc += m_coChange;
 			
 			Count++;
 			return true;
@@ -107,13 +107,15 @@ public class EcosystemEntity
 		
 	}
 	
-	public bool Remove()
+	new public bool Remove()
 	{
 		entityList = GameObject.FindGameObjectsWithTag (tagName);
 		
 		if (entityList.Length > 0) {
 			MonoBehaviour.Destroy (entityList [entityList.Length-1]);
 			Count--;
+			Ecosystem.atmosphere.OxygenCalc -= m_oxygenChange;
+			Ecosystem.atmosphere.CoCalc -= m_coChange;
 			return true;
 		} else {
 			return false;
@@ -121,13 +123,15 @@ public class EcosystemEntity
 		
 	}
 	
-	public bool Remove(Collider active)
+	new public bool Remove(Collider active)
 	{
 		entityList = GameObject.FindGameObjectsWithTag (tagName);
 		
 		if (entityList.Length > 0) {
 			MonoBehaviour.Destroy (active.gameObject);
 			Count--;
+			Ecosystem.atmosphere.OxygenCalc -= m_oxygenChange;
+			Ecosystem.atmosphere.CoCalc -= m_coChange;
 			return true;
 		} else {
 			return false;

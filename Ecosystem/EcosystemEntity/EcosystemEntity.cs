@@ -96,8 +96,8 @@ public class EcosystemEntity
 			Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
 			newInstance = MonoBehaviour.Instantiate (this.model, spawnPlaneRigid.position + position, spawnPlaneRigid.rotation) as Rigidbody;
 			
-			EcosystemAtmosphere.OxygenCalc += m_oxygenChange;
-			EcosystemAtmosphere.CoCalc += m_coChange;
+			Ecosystem.atmosphere.OxygenCalc += m_oxygenChange;
+			Ecosystem.atmosphere.CoCalc += m_coChange;
 			
 			Count++;
 			return true;

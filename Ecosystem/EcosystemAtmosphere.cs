@@ -29,8 +29,8 @@ using System.Collections;
 
 public class EcosystemAtmosphere  : MonoBehaviour
 {
-	private static double m_oxygen; 	//O2
-	private static double m_co;			//CO2
+	public double m_oxygen; 	//O2
+	private double m_co;			//CO2
 	private static double m_nitrogen;	//N2
 	private static double m_argon;		//Ar
 	private static double m_neon;		//Ne
@@ -39,11 +39,11 @@ public class EcosystemAtmosphere  : MonoBehaviour
 	private static double m_hydrogen;	//Ar
 	private static double m_krypton;	//Ar
 
-	private static double m_oxygenCalc = 0;
-	private static double m_coCalc = 0;
+	private double m_oxygenCalc = 0;
+	private double m_coCalc = 0;
 
 
-	public	static double OxygenCalc
+	public	double OxygenCalc
 	{
 		get
 		{
@@ -54,7 +54,7 @@ public class EcosystemAtmosphere  : MonoBehaviour
 			m_oxygenCalc = value;
 			
 		}
-	}public	static double CoCalc
+	}public	double CoCalc
 	{
 		get
 		{
@@ -67,7 +67,7 @@ public class EcosystemAtmosphere  : MonoBehaviour
 	}
 
 
-	public	static double Co
+	public	double Co
 	{
 		get
 		{
@@ -84,7 +84,7 @@ public class EcosystemAtmosphere  : MonoBehaviour
 		}
 	}
 
-	public	static double Oxygen
+	public	double Oxygen
 	{
 		get
 		{
