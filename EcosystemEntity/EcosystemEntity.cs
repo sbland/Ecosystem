@@ -34,8 +34,8 @@ public class EcosystemEntity
 	private static double m_coChange;// = 15;
 	private static double m_oxygenChange;// = -5;
 	
-	private static string prefabName;// = "CowPrefab";
-	private static string tagName;// = "ecosystemCow";
+	private static string prefabName = null;// = "CowPrefab";
+	private static string tagName = null;// = "ecosystemCow";
 	
 	
 	private GameObject model = GameObject.Find(prefabName);

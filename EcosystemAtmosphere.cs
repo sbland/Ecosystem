@@ -27,7 +27,7 @@
 using UnityEngine;
 using System.Collections;
 
-public static class EcosystemAtmosphere
+public class EcosystemAtmosphere  : MonoBehaviour
 {
 	private static double m_oxygen; 	//O2
 	private static double m_co;			//CO2

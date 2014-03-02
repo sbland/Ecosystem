@@ -14,6 +14,8 @@ public class GUISetup : MonoBehaviour {
 		GUI.Label (new Rect (200, 200, 400, 400), EcosystemEntityHuman.Count + " Humans");
 		GUI.Label (new Rect (200, 300, 400, 400), EcosystemEntityTree.Count + " Trees");
 		GUI.Label (new Rect (600, 600, 400, 400), labelTest);
+
+
 	}
 
 }
