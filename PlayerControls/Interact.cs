@@ -80,29 +80,10 @@ public class Interact : MonoBehaviour {
 			EcosystemEntityHuman human = new EcosystemEntityHuman();
 			EcosystemEntityCow cow = new EcosystemEntityCow();
 
-			switch(active.tag)
-				{
-				case "ecosystemTrees":
-				{
-					tree.Remove(active);
-					break;
-				}
-					
-				case "ecosystemCow":
-				{
-					cow.Remove(active);
-					break;
-				}
-				
-				case "ecosystemHuman":
-				{
-					human.Remove(active);
-					break;
-				}
-				default:
-				{
-					break;
-				}
+			if(active.GetComponent("EcosystemEntity") != null)
+			{
+				//EcosystemEntity hitObject = active as EcosystemEntity;
+				//hitObject.Remove();
 			}
 
 			Destroy(active);

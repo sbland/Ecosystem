@@ -10,9 +10,9 @@ public class GUISetup : MonoBehaviour {
 		//GUI.Box (new Rect (100, 100, 200, 200), labelTest);
 		GUI.Label (new Rect (100, 100, 400, 400), Ecosystem.atmosphere.Oxygen + EcosystemAtmosphere.Units.Oxygen);
 		GUI.Label (new Rect (100, 200, 400, 400), Ecosystem.atmosphere.Co + EcosystemAtmosphere.Units.Co);
-		GUI.Label (new Rect (200, 100, 400, 400), EcosystemEntityCow.Count + " Cows");
-		GUI.Label (new Rect (200, 200, 400, 400), EcosystemEntityHuman.Count + " Humans");
-		GUI.Label (new Rect (200, 300, 400, 400), EcosystemEntityTree.Count + " Trees");
+		GUI.Label (new Rect (200, 100, 400, 400), EcosystemEntity.humanCount + " Humans");
+		GUI.Label (new Rect (200, 200, 400, 400), EcosystemEntity.cowCount + " Cows");
+		GUI.Label (new Rect (200, 300, 400, 400), EcosystemEntity.treeCount + " Trees");
 		GUI.Label (new Rect (600, 600, 400, 400), labelTest);
 	}
 

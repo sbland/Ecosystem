@@ -27,30 +27,22 @@ using UnityEngine;
 using System.Collections;
 
 public class EcosystemEntityHuman : EcosystemEntity
-{
+{/*
 	//properties
 	private static int m_count = 0;
-	private static double m_coChange = 5;
-	private static double m_oxygenChange = -5;
+	public double m_coChange = 5;
+	public double m_oxygenChange = -5;
 
-	private static string prefabName = "HumanPrefab";
-	private static string tagName = "ecosystemHuman";
-	
-	
-	private GameObject model = GameObject.Find(prefabName);
-	private GameObject spawnPlane = GameObject.Find("SpawnPlane");
+	public int updateRate = 500;
+	public int updateCount = 0;
+
+	public GameObject model;
 	
 	static GameObject[] entityList;
 
-	//Constructor
-	public EcosystemEntityHuman()
-	{
-		//Count ++;
-	}
-	
-	
+
 	//property methods
-	new public static int Count {
+	new public int Count {
 		get{
 			return m_count;
 		}
@@ -62,7 +54,7 @@ public class EcosystemEntityHuman : EcosystemEntity
 		}
 	}
 	
-	new public static double CoChange {
+	new public double CoChange {
 		get{
 			return m_coChange;
 		}
@@ -71,7 +63,7 @@ public class EcosystemEntityHuman : EcosystemEntity
 		}
 	}
 	
-	new public static double OxygenChange {
+	new public double OxygenChange {
 		get{
 			return m_oxygenChange;
 		}
@@ -80,10 +72,41 @@ public class EcosystemEntityHuman : EcosystemEntity
 		}
 	}
 	
+	//3// STANDARD FUNCTIONS
 	
-	public static void EcoUpdate ()
+	
+	//3.1// Use this for initialization
+	void Start () {
+		CheckCount ();
+	}//End Start()--------------------------------------------------------------------------------------------------------
+	
+	//3.2//
+	// Update is called once per frame
+	void Update () {
+		
+		//EntityCounts();
+		if (updateCount == updateRate) 
+		{
+			updateCount = 0;
+			if (Ecosystem.atmosphere.Oxygen > 90) {
+				Create();
+			}
+	
+			if (Ecosystem.atmosphere.Oxygen < 8) {
+				Remove();
+			}
+
+		}
+		updateCount++;
+
+	}//End Update()--------------------------------------------------------------------------------------------------------
+
+
+
+
+	public static void CheckCount ()
 	{
-		entityList = GameObject.FindGameObjectsWithTag (tagName);
+		entityList = GameObject.FindGameObjectsWithTag (this.tag);
 		Count = entityList.Length;
 	}
 	
@@ -91,14 +114,13 @@ public class EcosystemEntityHuman : EcosystemEntity
 	{
 		if (model != null) {
 			Rigidbody newInstance;
-			Rigidbody spawnPlaneRigid = spawnPlane.rigidbody;
 			Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
-			newInstance = MonoBehaviour.Instantiate (model, spawnPlaneRigid.position + position, spawnPlaneRigid.rotation) as Rigidbody;
+			newInstance = MonoBehaviour.Instantiate (this, this.rigidbody.position + position, this.rigidbody.rotation) as Rigidbody;
 			
-			Ecosystem.atmosphere.OxygenCalc += m_oxygenChange;
-			Ecosystem.atmosphere.CoCalc += m_coChange;
+			Ecosystem.atmosphere.OxygenCalc += this.m_oxygenChange;
+			Ecosystem.atmosphere.CoCalc += this.m_coChange;
 			
-			Count++;
+			this.Count++;
 			return true;
 		} else {
 			return false;
@@ -108,10 +130,9 @@ public class EcosystemEntityHuman : EcosystemEntity
 	
 	new public bool Remove()
 	{
-		entityList = GameObject.FindGameObjectsWithTag (tagName);
-		
+
 		if (entityList.Length > 0) {
-			MonoBehaviour.Destroy (entityList [entityList.Length-1]);
+			MonoBehaviour.Destroy (this);
 			Count--;
 			Ecosystem.atmosphere.OxygenCalc -= m_oxygenChange;
 			Ecosystem.atmosphere.CoCalc -= m_coChange;
@@ -137,5 +158,7 @@ public class EcosystemEntityHuman : EcosystemEntity
 		}
 		
 	}
+
+*/
 }
 
