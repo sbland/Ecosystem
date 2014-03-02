@@ -1,12 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
-public static class EcosystemEnvironment
+public class EcosystemEnvironment : MonoBehaviour
 {
-		private static double m_temperature;
-		private static double m_humidity;
+		public double m_temperature;
+		public double m_humidity;
 
-		public static double Temperature
+		public double Temperature
 		{
 			get
 			{
@@ -17,7 +17,7 @@ public static class EcosystemEnvironment
 				m_temperature = value;
 			}
 		}
-		public static double Humidity
+		public double Humidity
 		{
 			get
 			{

@@ -44,69 +44,67 @@ using System.IO;
 
 
 public class Ecosystem : MonoBehaviour {
-//2// VARIABLES
+	//2// VARIABLES
 	//2.1// Input (User)
-	public int updateRate = 500;
-	public int updateCount = 0;
-
-	public double initialOxygen = 10;
-	public double initialCo = 10;
-	public double initialTemperature = 27;
-	public double initialHumidity = 45;
+	public static int updateRate = 500;
+	public static int updateCount = 0;
 
 	//2.2// Rigidbodys
 	public Rigidbody treeModel;
 	public Rigidbody humanModel;
 	public Rigidbody cowModel;
 	public Transform spawnPlane;
-
-	//2.3//
+	
+	//2.3// Directories
 	public string saveLocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\Ecosystem";
-	string dir;
+	string logDir;
+
+	//2.4// Objects
+	public static EcosystemAtmosphere atmosphere;
+	public static EcosystemEnvironment environment;
+
 	//--------------------------------------------------------------------------------------------------------
-
-//3// STANDARD FUNCTIONS
-
-
+	
+	//3// STANDARD FUNCTIONS
+	
+	
 	//3.1// Use this for initialization
 	void Start () {
 		Initialization ();
 		EntityCounts();
-
-		File.WriteAllText (dir, "Trees, Humans, Cow, Oxygen, CO2 \r\n");	//Write column headers
-
+				
+		File.WriteAllText (logDir, "Trees, Humans, Cow, Oxygen, CO2 \r\n");	//Write column headers
+		
 	}//End Start()--------------------------------------------------------------------------------------------------------
-
+	
 	//3.2//
 	// Update is called once per frame
 	void Update () {
-
+		
 		//EntityCounts();
-		if (this.updateCount == this.updateRate) 
-			{
-				EcosystemCalculations();	
-				EcosystemConsoleLog();
-				EcosystemDataLog();
-				this.updateCount = 0;
-			}
-		this.updateCount++;
-	
-
+		if (updateCount == updateRate) 
+		{
+			EcosystemCalculations();	
+			EcosystemConsoleLog();
+			EcosystemDataLog();
+			updateCount = 0;
+		}
+		updateCount++;
+		
+		
 	}//End Update()--------------------------------------------------------------------------------------------------------
-
+	
 	//3.3//
-	/// Initialize ecosystem variables to user in/put;
+	/// Initialize objects
 	private void Initialization()
 	{
-		//set values to user input
-		EcosystemAtmosphere.Oxygen = initialOxygen;
-		EcosystemAtmosphere.Co = initialCo;
-		EcosystemEnvironment.Temperature = initialTemperature;
-		EcosystemEnvironment.Humidity = initialHumidity;
-		dir = saveLocation + "\\saveTest_" + System.DateTime.Now.ToString("HHmm_d_M_yy") + ".txt";
-	}//End Initialization()--------------------------------------------------------------------------------------------------------
+		atmosphere = GetComponent<EcosystemAtmosphere> ();
+		environment = GetComponent<EcosystemEnvironment> ();
 
-//4// UNIQUE FUNCTIONS
+		logDir = saveLocation + "\\saveTest_" + System.DateTime.Now.ToString("HHmm_d_M_yy") + ".txt";
+	}//End Initialization()--------------------------------------------------------------------------------------------------------
+	
+	//4// UNIQUE FUNCTIONS
 	//4.1//
 	// Run entity Ecoupdate functions
 	private void EntityCounts()
@@ -114,78 +112,78 @@ public class Ecosystem : MonoBehaviour {
 		EcosystemEntityTree.EcoUpdate ();
 		EcosystemEntityHuman.EcoUpdate ();
 		EcosystemEntityCow.EcoUpdate ();
-
+		
 	}
-
+	
 	//4.2//
 	/// Ecosystems the calculations.
 	void EcosystemCalculations()
 	{
-		EcosystemAtmosphere.Oxygen += EcosystemAtmosphere.OxygenCalc;
-		EcosystemAtmosphere.Co += EcosystemAtmosphere.CoCalc;
-
+		atmosphere.Oxygen += atmosphere.OxygenCalc;
+		atmosphere.Co += atmosphere.CoCalc;
+		
 		//humanList = GameObject.FindGameObjectsWithTag ("ecosystemHuman");
 		//cowList = GameObject.FindGameObjectsWithTag ("ecosystemCow");
-
+		
 		EcosystemPostCalculations();
 	}
-
+	
 	//4.3//
 	/// Ecosystems the post calculations.
 	void EcosystemPostCalculations()
 	{
-
+		
 		EcosystemEntityTree tree = new EcosystemEntityTree();
 		EcosystemEntityHuman human = new EcosystemEntityHuman();
 		EcosystemEntityCow cow = new EcosystemEntityCow();
 		
 		//Create Tree
-		if (EcosystemAtmosphere.Co > 90) {
+		if (atmosphere.Co > 90) {
 			tree.Create();
 		}
-
+		
 		//Create Human
-		if (EcosystemAtmosphere.Oxygen > 90) {
+		if (atmosphere.Oxygen > 90) {
 			human.Create();
 		}
 		//Create Cow
-		if (EcosystemAtmosphere.Oxygen > 140) {
+		if (atmosphere.Oxygen > 140) {
 			cow.Create();
 		}
-
+		
 		//Destroy Tree
-		if (EcosystemAtmosphere.Co < 8) {
+		if (atmosphere.Co < 8) {
 			tree.Remove();
 		}
 		
 		//Destroy Human
-		if (EcosystemAtmosphere.Oxygen < 8) {
+		if (atmosphere.Oxygen < 8) {
 			human.Remove();
 		}
 		//Destroy Cow
-		if (EcosystemAtmosphere.Oxygen < 15) {
+		if (atmosphere.Oxygen < 15) {
 			cow.Remove();
 		}
 	}
-
-//5// DEBUG FUNCTIONS
+	
+	//5// DEBUG FUNCTIONS
 	//5.1// console log.
 	void EcosystemConsoleLog()
 	{
-
+		Debug.Log ("EcosystemLog");
 	}
-
+	
 	//5.2//
 	/// -Logs data to an xml file
 	void EcosystemDataLog()
 	{
 		//File Write Test]
 		//string dir = saveLocation + "\\saveTest.txt";
-		string[] printme = {EcosystemEntityTree.Count + "", ", " + EcosystemEntityHuman.Count, ", "+ EcosystemEntityCow.Count, ", " + EcosystemAtmosphere.Oxygen, ", " + EcosystemAtmosphere.Co + "\r\n"};
+		string[] printme = {EcosystemEntityTree.Count + "", ", " + EcosystemEntityHuman.Count, ", "+ EcosystemEntityCow.Count, ", " + atmosphere.Oxygen, ", " + atmosphere.Co + "\r\n"};
 		for (int i = 0; i<printme.Length; i++) 
 		{
-			File.AppendAllText(dir, printme[i]);
+			File.AppendAllText(logDir, printme[i]);
 		}
-
+		
 	}
 }

@@ -27,10 +27,10 @@
 using UnityEngine;
 using System.Collections;
 
-public static class EcosystemAtmosphere
+public class EcosystemAtmosphere : MonoBehaviour
 {
-	private static double m_oxygen; 	//O2
-	private static double m_co;			//CO2
+	public double m_oxygen; 	//O2
+	public double m_co;			//CO2
 	private static double m_nitrogen;	//N2
 	private static double m_argon;		//Ar
 	private static double m_neon;		//Ne
@@ -39,11 +39,11 @@ public static class EcosystemAtmosphere
 	private static double m_hydrogen;	//Ar
 	private static double m_krypton;	//Ar
 
-	private static double m_oxygenCalc = 0;
-	private static double m_coCalc = 0;
+	public double m_oxygenCalc = 0;
+	public double m_coCalc = 0;
 
 
-	public	static double OxygenCalc
+	public	double OxygenCalc
 	{
 		get
 		{
@@ -54,7 +54,7 @@ public static class EcosystemAtmosphere
 			m_oxygenCalc = value;
 			
 		}
-	}public	static double CoCalc
+	}public	double CoCalc
 	{
 		get
 		{
@@ -67,7 +67,7 @@ public static class EcosystemAtmosphere
 	}
 
 
-	public	static double Co
+	public	double Co
 	{
 		get
 		{
@@ -84,7 +84,7 @@ public static class EcosystemAtmosphere
 		}
 	}
 
-	public	static double Oxygen
+	public	double Oxygen
 	{
 		get
 		{
@@ -100,7 +100,7 @@ public static class EcosystemAtmosphere
 		}
 	}
 
-	public	static double Nitrogen
+	public	double Nitrogen
 	{
 		get
 		{
@@ -115,7 +115,7 @@ public static class EcosystemAtmosphere
 		}
 	}
 	
-	public	static double Argon
+	public	double Argon
 	{
 		get
 		{
@@ -130,7 +130,7 @@ public static class EcosystemAtmosphere
 		}
 	}
 
-	public	static double Neon
+	public	double Neon
 	{
 		get
 		{

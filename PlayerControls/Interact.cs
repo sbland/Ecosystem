@@ -38,6 +38,7 @@ public class Interact : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		inventory = new Inventory();
+		controls = GetComponent<Controls> ();
 	}
 	
 	// Update is called once per frame
