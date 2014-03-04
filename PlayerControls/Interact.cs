@@ -68,7 +68,7 @@ public class Interact : MonoBehaviour {
 
 	void OnTriggerEnter (Collider active)
 	{
-		GUISetup.labelTest = "Press [Del] to remove " + active.tag;
+		GUISetup.response = "Press [Del] to remove " + active.tag;
 		active.renderer.material.color = Color.green;
 	}
 
@@ -101,7 +101,7 @@ public class Interact : MonoBehaviour {
 
 	void OnTriggerExit (Collider active)
 	{
-		GUISetup.labelTest = "";
+		GUISetup.response = "";
 		active.renderer.material.color = Color.grey;
 	}
 }

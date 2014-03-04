@@ -41,12 +41,13 @@ public class EcosystemEntity : MonoBehaviour
 	public double tempLimitUpper = 0;
 	public double tempLimitLower = 0;
 
+	public float growthAmount = 1;
+
 	public int updateRate = 500;
 	public int updateCount = 0;
 
 	public string entityName = null;
 
-	public static int humanCount = 0;
 	public static int cowCount = 0;
 	public static int treeCount = 0;
 	
@@ -76,49 +77,61 @@ public class EcosystemEntity : MonoBehaviour
 	//3.1// Use this for initialization
 	void Start () {
 		CheckCount ();
+		gameObject.transform.localScale = new Vector3 (0.5f, 0.5f, 0.5f);
 	}//End Start()--------------------------------------------------------------------------------------------------------
 	
 	//3.2//
 	// Update is called once per frame
 	void Update () {
+
+	}//End Update()--------------------------------------------------------------------------------------------------------
+
+
+	void FixedUpdate(){
 		
 		//EntityCounts();
 		if (updateCount == updateRate) 
 		{
-			updateCount = 0;
-			if (Ecosystem.atmosphere.Oxygen >= oxygenReqUpper 
-			    && Ecosystem.atmosphere.Co >= coReqUpper
-			    && Ecosystem.environment.Temperature >= tempLimitLower
-			    && Ecosystem.environment.Temperature <= tempLimitUpper
-			    )
-			{
-				Create();
-			}
-			
-			if (Ecosystem.atmosphere.Oxygen <= oxygenReqLower 
-			    || Ecosystem.atmosphere.Co <= coReqLower
-			    || Ecosystem.environment.Temperature <= tempLimitLower
-			    || Ecosystem.environment.Temperature >= tempLimitUpper
-			    )
-			{
-				Remove();
-			}
-
-			
+			EcoCalculations ();
+			updateCount = 0;		
 		}
 		updateCount++;
+
 		
-	}//End Update()--------------------------------------------------------------------------------------------------------
+	}
+
+	//4.1//
+	public void EcoCalculations()
+	{
+		updateCount = 0;
+		if (Ecosystem.atmosphere.Oxygen >= oxygenReqUpper 
+		    && Ecosystem.atmosphere.Co >= coReqUpper
+		    && Ecosystem.environment.Temperature >= tempLimitLower
+		    && Ecosystem.environment.Temperature <= tempLimitUpper
+		    )
+		{
+			Create();
+		}
+		
+		if (Ecosystem.atmosphere.Oxygen <= oxygenReqLower 
+		    || Ecosystem.atmosphere.Co <= coReqLower
+		    || Ecosystem.environment.Temperature <= tempLimitLower
+		    || Ecosystem.environment.Temperature >= tempLimitUpper
+		    )
+		{
+			Remove();
+		}
+		
+		Growth();
+	}
 	
-	
-	
-	
+	//4.2//
 	public void CheckCount ()
 	{
 		switch (this.entityName) {
 			case "Human":
 			{
-				humanCount++;
+				EcosystemEntityData.Humans.count++;
 				break;
 			}
 			case "Cow":
@@ -137,7 +150,8 @@ public class EcosystemEntity : MonoBehaviour
 			}
 		}
 	}
-	
+
+	//4.3//
 	public bool Create()
 	{
 
@@ -147,20 +161,22 @@ public class EcosystemEntity : MonoBehaviour
 		
 		Ecosystem.atmosphere.OxygenCalc += this.m_oxygenChange;
 		Ecosystem.atmosphere.CoCalc += this.m_coChange;
-		
+
+
 		return true;
 
 
 
 				
 	}
-	
+
+	//4.4//
 	public bool Remove()
 	{
 		switch (this.entityName) {
 		case "Human":
 		{
-			humanCount--;
+			EcosystemEntityData.Humans.count--;
 			break;
 		}
 		case "Cow":
@@ -186,6 +202,13 @@ public class EcosystemEntity : MonoBehaviour
 
 			MonoBehaviour.Destroy (gameObject);
 			return true;
+	}
+
+
+	//4.5//
+	public void Growth()
+	{
+		gameObject.rigidbody.transform.localScale = new Vector3(transform.localScale.x * 1.1f, transform.localScale.y * 1.1f, transform.localScale.z * 1.1f);
 	}
 
 }

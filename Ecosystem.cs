@@ -74,7 +74,7 @@ public class Ecosystem : MonoBehaviour {
 	}//End Start()--------------------------------------------------------------------------------------------------------
 	
 	//3.2//
-	// Update is called once per frame
+
 	void Update () {
 		
 		//EntityCounts();
@@ -88,8 +88,8 @@ public class Ecosystem : MonoBehaviour {
 		updateCount++;
 		
 		
-	}//End Update()--------------------------------------------------------------------------------------------------------
-	
+	}
+
 	//3.3//
 	/// Initialize objects
 	private void Initialization()
