@@ -48,9 +48,8 @@ public class EcosystemEntity : MonoBehaviour
 
 	public string entityName = null;
 
-	public static int cowCount = 0;
-	public static int treeCount = 0;
-	
+	public bool registered = false;
+
 	//property methods
 
 	public double CoChange {
@@ -76,8 +75,22 @@ public class EcosystemEntity : MonoBehaviour
 	
 	//3.1// Use this for initialization
 	void Start () {
-		CheckCount ();
+
+		//UpdateCount ();
 		gameObject.transform.localScale = new Vector3 (0.5f, 0.5f, 0.5f);
+
+		//Register entity to collection
+		if (!registered) {
+						//EcosystemEntityData.entityCatalogue [EcosystemEntityData.registeredCount] = entityName;
+						EcosystemEntityData.Data newData = new EcosystemEntityData.Data (0, 1f, 1f, 1f);
+						EcosystemEntityData.entityDictionary.Add (entityName, newData);
+						EcosystemEntityData.registeredCount++;
+
+						EcosystemEntityData.entityDictionary [entityName].count++;
+						registered = true;
+				} else {
+						EcosystemEntityData.entityDictionary [entityName].count++;
+		}
 	}//End Start()--------------------------------------------------------------------------------------------------------
 	
 	//3.2//
@@ -126,9 +139,11 @@ public class EcosystemEntity : MonoBehaviour
 	}
 	
 	//4.2//
-	public void CheckCount ()
+	public void UpdateCount ()
 	{
-		switch (this.entityName) {
+		EcosystemEntityData.entityDictionary [entityName].count++;
+
+		/*switch (this.entityName) {
 			case "Human":
 			{
 				EcosystemEntityData.Humans.count++;
@@ -136,19 +151,19 @@ public class EcosystemEntity : MonoBehaviour
 			}
 			case "Cow":
 			{
-				cowCount++;
+				EcosystemEntityData.Cows.count++;
 				break;
 			}
 			case "Tree":
 			{
-				treeCount++;
+				EcosystemEntityData.Trees.count++;
 				break;
 			}
 			default:
 			{
 				break;
 			}
-		}
+		}*/
 	}
 
 	//4.3//
@@ -173,7 +188,8 @@ public class EcosystemEntity : MonoBehaviour
 	//4.4//
 	public bool Remove()
 	{
-		switch (this.entityName) {
+		EcosystemEntityData.entityDictionary [entityName].count--;
+		/*switch (this.entityName) {
 		case "Human":
 		{
 			EcosystemEntityData.Humans.count--;
@@ -181,19 +197,19 @@ public class EcosystemEntity : MonoBehaviour
 		}
 		case "Cow":
 		{
-			cowCount--;
+			EcosystemEntityData.Cows.count--;
 			break;
 		}
 		case "Tree":
 		{
-			treeCount--;
+			EcosystemEntityData.Trees.count--;
 			break;
 		}
 		default:
 		{
 			break;
 		}
-		}
+		}*/
 			
 			
 			//Count--;

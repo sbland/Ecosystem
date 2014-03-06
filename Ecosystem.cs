@@ -77,6 +77,13 @@ public class Ecosystem : MonoBehaviour {
 
 	void Update () {
 		
+
+		
+		
+	}
+
+	void FixedUpdate () {
+
 		//EntityCounts();
 		if (updateCount == updateRate) 
 		{
@@ -86,9 +93,8 @@ public class Ecosystem : MonoBehaviour {
 			updateCount = 0;
 		}
 		updateCount++;
-		
-		
-	}
+
+		}
 
 	//3.3//
 	/// Initialize objects
@@ -122,13 +128,13 @@ public class Ecosystem : MonoBehaviour {
 	/// -Logs data to an xml file
 	void EcosystemDataLog()
 	{
-		//File Write Test]
-		//string dir = saveLocation + "\\saveTest.txt";
-		/*string[] printme = {EcosystemEntityTree.Count + "", ", " + EcosystemEntityHuman.Count, ", "+ EcosystemEntityCow.Count, ", " + atmosphere.Oxygen, ", " + atmosphere.Co + "\r\n"};
+		//File Write Test
+		string dir = saveLocation + "\\saveTest.txt";
+		string[] printme = {EcosystemEntityData.Trees.count + "", ", " + EcosystemEntityData.Humans.count, ", "+ EcosystemEntityData.Cows.count, ", " + atmosphere.Oxygen, ", " + atmosphere.Co + "\r\n"};
 		for (int i = 0; i<printme.Length; i++) 
 		{
 			File.AppendAllText(logDir, printme[i]);
-		}*/
+		}
 		
 	}
 }

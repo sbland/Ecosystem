@@ -39,6 +39,20 @@ public class EcosystemEntityData : MonoBehaviour
 		public float createRate = 1;
 		public float removeRate = 1;
 
+		public Data(int countIn, float growthIn, float createIn, float removeIn)
+		{
+			count = countIn;
+			growthRate = growthIn;
+			createRate = createIn;
+			removeRate = removeIn;
+		}
+
+		public Data()
+		{
+
+		}
+
+
 	}
 
 	public static Data Trees = new Data();
@@ -46,11 +60,18 @@ public class EcosystemEntityData : MonoBehaviour
 	public static Data Cows = new Data();
 
 
+	//public static EcosystemEntity[] entityCatalogue = new EcosystemEntity[4];
+	//public static List<EcosystemEntity> entityCatalogue = new List<EcosystemEntity>();
+	//public static string[] entityCatalogue= new string[10];
+	public static int registeredCount = 0;
+
+
+	public static Dictionary<string, Data> entityDictionary = new Dictionary<string, Data>();
 
 		// Use this for initialization
 		void Start ()
 		{
-	
+			//entityCatalogue = new string[10];
 		}
 	
 		// Update is called once per frame
