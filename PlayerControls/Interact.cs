@@ -43,7 +43,7 @@ public class Interact : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+	/*
 		if (Input.GetKeyDown (KeyCode.Keypad0)) {
 			EcosystemEntityTree tree = new EcosystemEntityTree();
 			tree.Create();
@@ -58,7 +58,7 @@ public class Interact : MonoBehaviour {
 			EcosystemEntityCow cow = new EcosystemEntityCow();
 			cow.Create();
 		}
-
+*/
 
 		if (Input.GetKeyDown (controls.drop)) {
 			inventory.removeItem();
@@ -74,6 +74,7 @@ public class Interact : MonoBehaviour {
 
 	void OnTriggerStay (Collider active)
 	{
+		/*
 		if(Input.GetKeyDown(KeyCode.Delete))
 		{
 			EcosystemEntityTree tree = new EcosystemEntityTree();
@@ -90,6 +91,7 @@ public class Interact : MonoBehaviour {
 
 			active.renderer.material.color = Color.red;
 		}
+		*/
 
 		if (Input.GetKeyDown (controls.use)) {
 			Debug.Log("Adding " + active.name + " to the inventory");

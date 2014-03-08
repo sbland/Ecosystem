@@ -3,10 +3,10 @@ using System.Collections;
 
 public class EcosystemEnvironment : MonoBehaviour
 {
-		public double m_temperature;
-		public double m_humidity;
+	public float m_temperature;
+	public float m_humidity;
 
-		public double Temperature
+		public float  Temperature
 		{
 			get
 			{
@@ -17,7 +17,7 @@ public class EcosystemEnvironment : MonoBehaviour
 				m_temperature = value;
 			}
 		}
-		public double Humidity
+	public float Humidity
 		{
 			get
 			{

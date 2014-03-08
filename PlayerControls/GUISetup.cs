@@ -16,16 +16,13 @@ public class GUISetup : MonoBehaviour {
 		int i = 0;
 		foreach (var item in EcosystemEntityData.entityDictionary) {
 			int positionY = (i * 100) + 100;
-			string labelText = item.Value.count + " " + item.Key;
+			string labelText = item.Value.Count + " " + item.Key;
 			GUI.Label (new Rect (300, positionY, 400, 400), labelText);
 			i++;
 				}
 
 		GUI.Label (new Rect (100, 100, 400, 400), Ecosystem.atmosphere.Oxygen + EcosystemAtmosphere.Units.Oxygen);
 		GUI.Label (new Rect (100, 200, 400, 400), Ecosystem.atmosphere.Co + EcosystemAtmosphere.Units.Co);
-		/*GUI.Label (new Rect (300, 100, 400, 400), EcosystemEntityData.entityDictionary["Human"].count + " Humans");
-		GUI.Label (new Rect (300, 200, 400, 400), EcosystemEntityData.entityDictionary["Cow"].count + " Cows");
-		GUI.Label (new Rect (300, 300, 400, 400), EcosystemEntityData.entityDictionary["Tree"].count + " Trees");*/
 
 	}
 
@@ -46,7 +43,7 @@ public class GUISetup : MonoBehaviour {
 			Debug.Log(result);
 				}*/
 		if (GUI.Button (new Rect (20, 80, 80, 20), "Test Dictionary")) {
-			Debug.Log(EcosystemEntityData.entityDictionary["Tree"].count);
+			Debug.Log(EcosystemEntityData.entityDictionary["Tree"].Count);
 		}
 	}
 

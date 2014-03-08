@@ -30,18 +30,18 @@ using System.Collections;
 public class EcosystemEntity : MonoBehaviour
 {
 	//properties
-	public double m_coChange = 0;
-	public double m_oxygenChange = 0;
+	public float m_coChange = 0f;
+	public float m_oxygenChange = 0f;
 
-	public double oxygenReqUpper = 0;
-	public double oxygenReqLower = 0;
-	public double coReqUpper = 0;
-	public double coReqLower = 0;
+	public float oxygenReqUpper = 0f;
+	public float oxygenReqLower = 0f;
+	public float coReqUpper = 0f;
+	public float coReqLower = 0f;
 
-	public double tempLimitUpper = 0;
-	public double tempLimitLower = 0;
+	public float tempLimitUpper = 0f;
+	public float tempLimitLower = 0f;
 
-	public float growthAmount = 1;
+	public float growthAmount = 1f;
 
 	public int updateRate = 500;
 	public int updateCount = 0;
@@ -52,7 +52,7 @@ public class EcosystemEntity : MonoBehaviour
 
 	//property methods
 
-	public double CoChange {
+	public float CoChange {
 		get{
 			return m_coChange;
 		}
@@ -61,7 +61,7 @@ public class EcosystemEntity : MonoBehaviour
 		}
 	}
 	
-	public double OxygenChange {
+	public float OxygenChange {
 		get{
 			return m_oxygenChange;
 		}
@@ -81,15 +81,14 @@ public class EcosystemEntity : MonoBehaviour
 
 		//Register entity to collection
 		if (!registered) {
-						//EcosystemEntityData.entityCatalogue [EcosystemEntityData.registeredCount] = entityName;
-						EcosystemEntityData.Data newData = new EcosystemEntityData.Data (0, 1f, 1f, 1f);
-						EcosystemEntityData.entityDictionary.Add (entityName, newData);
-						EcosystemEntityData.registeredCount++;
-
-						EcosystemEntityData.entityDictionary [entityName].count++;
-						registered = true;
-				} else {
-						EcosystemEntityData.entityDictionary [entityName].count++;
+			Register();
+			EcosystemEntityData.entityDictionary [entityName].Count++;
+			Ecosystem.atmosphere.OxygenCalc += this.m_oxygenChange;
+			Ecosystem.atmosphere.CoCalc += this.m_coChange;
+		} else {
+			EcosystemEntityData.entityDictionary [entityName].Count++;
+			Ecosystem.atmosphere.OxygenCalc += this.m_oxygenChange;
+			Ecosystem.atmosphere.CoCalc += this.m_coChange;
 		}
 	}//End Start()--------------------------------------------------------------------------------------------------------
 	
@@ -105,8 +104,9 @@ public class EcosystemEntity : MonoBehaviour
 		//EntityCounts();
 		if (updateCount == updateRate) 
 		{
-			EcoCalculations ();
-			updateCount = 0;		
+			updateCount = 0;
+			Debug.Log(entityName + " updating");
+			EcoCalculations ();	
 		}
 		updateCount++;
 
@@ -116,56 +116,56 @@ public class EcosystemEntity : MonoBehaviour
 	//4.1//
 	public void EcoCalculations()
 	{
-		updateCount = 0;
-		if (Ecosystem.atmosphere.Oxygen >= oxygenReqUpper 
-		    && Ecosystem.atmosphere.Co >= coReqUpper
-		    && Ecosystem.environment.Temperature >= tempLimitLower
-		    && Ecosystem.environment.Temperature <= tempLimitUpper
-		    )
-		{
-			Create();
-		}
+
+		int seed = Random.Range (0, 10);
+		if (chanceConvert (EcosystemEntityData.entityDictionary [entityName].m_createRate, seed)) {
+			if (chanceConvert (EcosystemEntityData.entityDictionary [entityName].m_createRate, seed)) {
+				Debug.Log ("Create " + entityName);
+				Create ();
+			}else{
+				Debug.Log ("Grow " + entityName);
+				Growth();
+			}
 		
-		if (Ecosystem.atmosphere.Oxygen <= oxygenReqLower 
-		    || Ecosystem.atmosphere.Co <= coReqLower
-		    || Ecosystem.environment.Temperature <= tempLimitLower
-		    || Ecosystem.environment.Temperature >= tempLimitUpper
-		    )
-		{
-			Remove();
+		} else if (chanceConvert (EcosystemEntityData.entityDictionary [entityName].m_removeRate, seed)) {
+				Debug.Log ("Remove " + entityName);
+				Remove ();
 		}
+
+	}
+
+	// weighted true or false check
+	public static bool chanceConvert(float inputChance, int seed)
+	{
+		inputChance = inputChance * 10;
 		
-		Growth();
+		
+		
+		if (seed > inputChance) {
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+		
+	//4.2//
+	public void Register()
+	{
+		EcosystemEntityData.Data newData = new EcosystemEntityData.Data (updateRate,
+		                                                                 growthAmount,
+		                                                                 m_coChange,
+		                                                                 m_oxygenChange,
+		                                                                 oxygenReqUpper,
+		                                                                 coReqUpper,
+		                                                                  tempLimitUpper
+		                                                                 );
+		EcosystemEntityData.entityDictionary.Add (entityName, newData);
+		EcosystemEntityData.registeredCount++;
+		
+		registered = true;
 	}
 	
-	//4.2//
-	public void UpdateCount ()
-	{
-		EcosystemEntityData.entityDictionary [entityName].count++;
-
-		/*switch (this.entityName) {
-			case "Human":
-			{
-				EcosystemEntityData.Humans.count++;
-				break;
-			}
-			case "Cow":
-			{
-				EcosystemEntityData.Cows.count++;
-				break;
-			}
-			case "Tree":
-			{
-				EcosystemEntityData.Trees.count++;
-				break;
-			}
-			default:
-			{
-				break;
-			}
-		}*/
-	}
-
 	//4.3//
 	public bool Create()
 	{
@@ -173,51 +173,19 @@ public class EcosystemEntity : MonoBehaviour
 		Rigidbody newInstance;
 		Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
 		newInstance = MonoBehaviour.Instantiate (gameObject, gameObject.rigidbody.position + position, gameObject.rigidbody.rotation) as Rigidbody;
-		
-		Ecosystem.atmosphere.OxygenCalc += this.m_oxygenChange;
-		Ecosystem.atmosphere.CoCalc += this.m_coChange;
-
-
 		return true;
 
-
-
-				
 	}
 
 	//4.4//
 	public bool Remove()
 	{
-		EcosystemEntityData.entityDictionary [entityName].count--;
-		/*switch (this.entityName) {
-		case "Human":
-		{
-			EcosystemEntityData.Humans.count--;
-			break;
-		}
-		case "Cow":
-		{
-			EcosystemEntityData.Cows.count--;
-			break;
-		}
-		case "Tree":
-		{
-			EcosystemEntityData.Trees.count--;
-			break;
-		}
-		default:
-		{
-			break;
-		}
-		}*/
-			
-			
-			//Count--;
-			Ecosystem.atmosphere.OxygenCalc -= m_oxygenChange;
-			Ecosystem.atmosphere.CoCalc -= m_coChange;
+		EcosystemEntityData.entityDictionary [entityName].Count--;
+		Ecosystem.atmosphere.OxygenCalc -= m_oxygenChange;
+		Ecosystem.atmosphere.CoCalc -= m_coChange;
 
-			MonoBehaviour.Destroy (gameObject);
-			return true;
+		MonoBehaviour.Destroy (gameObject);
+		return true;
 	}
 
 

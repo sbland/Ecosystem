@@ -29,21 +29,21 @@ using System.Collections;
 
 public class EcosystemAtmosphere : MonoBehaviour
 {
-	public double m_oxygen; 	//O2
-	public double m_co;			//CO2
-	private static double m_nitrogen;	//N2
-	private static double m_argon;		//Ar
-	private static double m_neon;		//Ne
-	private static double m_helium;		//He
-	private static double m_methane;	//CH4
-	private static double m_hydrogen;	//Ar
-	private static double m_krypton;	//Ar
+	public float m_oxygen; 	//O2
+	public float m_co;			//CO2
+	private static float m_nitrogen;	//N2
+	private static float m_argon;		//Ar
+	private static float m_neon;		//Ne
+	private static float m_helium;		//He
+	private static float m_methane;	//CH4
+	private static float m_hydrogen;	//Ar
+	private static float m_krypton;	//Ar
 
-	public double m_oxygenCalc = 0;
-	public double m_coCalc = 0;
+	public float m_oxygenCalc = 0;
+	public float m_coCalc = 0;
 
 
-	public	double OxygenCalc
+	public	float OxygenCalc
 	{
 		get
 		{
@@ -54,7 +54,7 @@ public class EcosystemAtmosphere : MonoBehaviour
 			m_oxygenCalc = value;
 			
 		}
-	}public	double CoCalc
+	}public	float CoCalc
 	{
 		get
 		{
@@ -67,7 +67,7 @@ public class EcosystemAtmosphere : MonoBehaviour
 	}
 
 
-	public	double Co
+	public	float Co
 	{
 		get
 		{
@@ -75,16 +75,16 @@ public class EcosystemAtmosphere : MonoBehaviour
 		}
 		set
 		{
-			if(value>=0){
+			if(value>=1f){
 				m_co = value;
 			}else{
-				m_co = 0;
+				m_co = 1f;
 			}
 
 		}
 	}
 
-	public	double Oxygen
+	public	float Oxygen
 	{
 		get
 		{
@@ -92,15 +92,15 @@ public class EcosystemAtmosphere : MonoBehaviour
 		}
 		set
 		{
-			if(value>=0){
+			if(value>=1f){
 				m_oxygen = value;
 			}else{
-				m_oxygen = 0;
+				m_oxygen = 1f;
 			}
 		}
 	}
 
-	public	double Nitrogen
+	public	float Nitrogen
 	{
 		get
 		{
@@ -115,7 +115,7 @@ public class EcosystemAtmosphere : MonoBehaviour
 		}
 	}
 	
-	public	double Argon
+	public	float Argon
 	{
 		get
 		{
@@ -130,7 +130,7 @@ public class EcosystemAtmosphere : MonoBehaviour
 		}
 	}
 
-	public	double Neon
+	public	float Neon
 	{
 		get
 		{
@@ -142,7 +142,7 @@ public class EcosystemAtmosphere : MonoBehaviour
 		}
 	}
 
-	public	static double Helium
+	public	static float Helium
 	{
 		get
 		{
@@ -154,7 +154,7 @@ public class EcosystemAtmosphere : MonoBehaviour
 		}
 	}
 
-	public	static double Methane
+	public	static float Methane
 	{
 		get
 		{
@@ -166,7 +166,7 @@ public class EcosystemAtmosphere : MonoBehaviour
 		}
 	}
 
-	public	static double Hydrogen
+	public	static float Hydrogen
 	{
 		get
 		{
@@ -178,7 +178,7 @@ public class EcosystemAtmosphere : MonoBehaviour
 		}
 	}
 
-	public	static double Krypton
+	public	static float Krypton
 	{
 		get
 		{

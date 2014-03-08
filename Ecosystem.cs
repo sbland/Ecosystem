@@ -48,6 +48,7 @@ public class Ecosystem : MonoBehaviour {
 	public int updateRate = 500;
 	public int updateCount = 0;
 
+
 	//2.2// Rigidbodys
 	
 	//2.3// Directories
@@ -67,11 +68,15 @@ public class Ecosystem : MonoBehaviour {
 	//3.1// Use this for initialization
 	void Start () {
 
-		Initialization ();
-				
-		File.WriteAllText (logDir, "Trees, Humans, Cow, Oxygen, CO2 \r\n");	//Write column headers
-		
+
 	}//End Start()--------------------------------------------------------------------------------------------------------
+
+	void Awake () {
+		Initialization ();
+		
+		File.WriteAllText (logDir, "Trees, Humans, Cow, Oxygen, CO2 \r\n");	//Write column headers
+
+	}
 	
 	//3.2//
 
@@ -128,13 +133,14 @@ public class Ecosystem : MonoBehaviour {
 	/// -Logs data to an xml file
 	void EcosystemDataLog()
 	{
+		/*
 		//File Write Test
 		string dir = saveLocation + "\\saveTest.txt";
-		string[] printme = {EcosystemEntityData.Trees.count + "", ", " + EcosystemEntityData.Humans.count, ", "+ EcosystemEntityData.Cows.count, ", " + atmosphere.Oxygen, ", " + atmosphere.Co + "\r\n"};
+		string[] printme = {EcosystemEntityData.Trees.Count + "", ", " + EcosystemEntityData.Humans.Count, ", "+ EcosystemEntityData.Cows.Count, ", " + atmosphere.Oxygen, ", " + atmosphere.Co + "\r\n"};
 		for (int i = 0; i<printme.Length; i++) 
 		{
 			File.AppendAllText(logDir, printme[i]);
 		}
-		
+		*/
 	}
 }
