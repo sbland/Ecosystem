@@ -146,7 +146,6 @@ public class EcosystemEntityData : MonoBehaviour
 
 		//entityDictionary [item] = itemD;
 
-		Debug.Log (oxygenRatio + " Oratio " + coRatio + " Cratio " + entityDictionary [item].m_createRate + " create " + entityDictionary [item].m_removeRate + " remove " + item);
 
 
 	}

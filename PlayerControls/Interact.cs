@@ -74,24 +74,22 @@ public class Interact : MonoBehaviour {
 
 	void OnTriggerStay (Collider active)
 	{
-		/*
-		if(Input.GetKeyDown(KeyCode.Delete))
+
+		if(Input.GetKey(KeyCode.Delete))
 		{
-			EcosystemEntityTree tree = new EcosystemEntityTree();
-			EcosystemEntityHuman human = new EcosystemEntityHuman();
-			EcosystemEntityCow cow = new EcosystemEntityCow();
 
 			if(active.GetComponent("EcosystemEntity") != null)
 			{
-				//EcosystemEntity hitObject = active as EcosystemEntity;
-				//hitObject.Remove();
+				EcosystemEntity hitObject = active.GetComponent<EcosystemEntity>();
+				Debug.Log("removing " + hitObject.entityName);
+				hitObject.Remove();
 			}
 
-			Destroy(active);
+			//Destroy(active);
 
-			active.renderer.material.color = Color.red;
+			//active.renderer.material.color = Color.red;
 		}
-		*/
+
 
 		if (Input.GetKeyDown (controls.use)) {
 			Debug.Log("Adding " + active.name + " to the inventory");

@@ -32,5 +32,10 @@ public class Controls : MonoBehaviour
 
 	public KeyCode use = KeyCode.KeypadEnter;
 	public KeyCode drop = KeyCode.KeypadPeriod;
+	public KeyCode forward = KeyCode.W;
+	public KeyCode backwards = KeyCode.S;
+	public KeyCode strafeLeft = KeyCode.A;
+	public KeyCode strafeRight = KeyCode.D;
+	public KeyCode jump = KeyCode.Space;
 }
 

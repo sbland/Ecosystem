@@ -34,17 +34,14 @@ public class EcosystemEntity : MonoBehaviour
 	public float m_oxygenChange = 0f;
 
 	public float oxygenReqUpper = 0f;
-	public float oxygenReqLower = 0f;
 	public float coReqUpper = 0f;
-	public float coReqLower = 0f;
-
-	public float tempLimitUpper = 0f;
-	public float tempLimitLower = 0f;
+	public float tempReq = 0f;
 
 	public float growthAmount = 1f;
 
 	public int updateRate = 500;
 	public int updateCount = 0;
+	public int adjustment = 1;
 
 	public string entityName = null;
 
@@ -77,6 +74,7 @@ public class EcosystemEntity : MonoBehaviour
 	void Start () {
 
 		//UpdateCount ();
+		updateCount = Random.Range (0, updateRate);
 		gameObject.transform.localScale = new Vector3 (0.5f, 0.5f, 0.5f);
 
 		//Register entity to collection
@@ -117,7 +115,7 @@ public class EcosystemEntity : MonoBehaviour
 	public void EcoCalculations()
 	{
 
-		int seed = Random.Range (0, 10);
+		int seed = Random.Range (0, 10 * adjustment);
 		if (chanceConvert (EcosystemEntityData.entityDictionary [entityName].m_createRate, seed)) {
 			if (chanceConvert (EcosystemEntityData.entityDictionary [entityName].m_createRate, seed)) {
 				Debug.Log ("Create " + entityName);
@@ -138,9 +136,7 @@ public class EcosystemEntity : MonoBehaviour
 	public static bool chanceConvert(float inputChance, int seed)
 	{
 		inputChance = inputChance * 10;
-		
-		
-		
+
 		if (seed > inputChance) {
 			return false;
 		}else{
@@ -158,7 +154,7 @@ public class EcosystemEntity : MonoBehaviour
 		                                                                 m_oxygenChange,
 		                                                                 oxygenReqUpper,
 		                                                                 coReqUpper,
-		                                                                  tempLimitUpper
+		                                                                 tempReq
 		                                                                 );
 		EcosystemEntityData.entityDictionary.Add (entityName, newData);
 		EcosystemEntityData.registeredCount++;

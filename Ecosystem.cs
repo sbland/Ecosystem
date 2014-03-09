@@ -133,14 +133,24 @@ public class Ecosystem : MonoBehaviour {
 	/// -Logs data to an xml file
 	void EcosystemDataLog()
 	{
-		/*
+
 		//File Write Test
 		string dir = saveLocation + "\\saveTest.txt";
-		string[] printme = {EcosystemEntityData.Trees.Count + "", ", " + EcosystemEntityData.Humans.Count, ", "+ EcosystemEntityData.Cows.Count, ", " + atmosphere.Oxygen, ", " + atmosphere.Co + "\r\n"};
-		for (int i = 0; i<printme.Length; i++) 
-		{
-			File.AppendAllText(logDir, printme[i]);
+		string printme = "";
+
+		foreach (var item in EcosystemEntityData.entityDictionary) {
+			printme +=  EcosystemEntityData.entityDictionary[item.Key].Count + ", ";
+			
 		}
-		*/
+		printme += atmosphere.Oxygen + ", " + atmosphere.Co + "\r\n";
+
+		File.AppendAllText(logDir, printme);
+
+		//string[] printme = {EcosystemEntityData.Trees.Count + "", ", " + EcosystemEntityData.Humans.Count, ", "+ EcosystemEntityData.Cows.Count, ", " + atmosphere.Oxygen, ", " + atmosphere.Co + "\r\n"};
+		//for (int i = 0; i<printme.Length; i++) 
+		//{
+		//	File.AppendAllText(logDir, printme[i]);
+		//}
+
 	}
 }
