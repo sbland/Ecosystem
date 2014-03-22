@@ -30,22 +30,34 @@ using System.Collections;
 public class EcosystemEntity : MonoBehaviour
 {
 	//properties
-	public float m_coChange = 0f;
-	public float m_oxygenChange = 0f;
+	//Atmosphere
+	public float m_coChange = 0f;	//amount to add to global per second Co change
+	public float m_oxygenChange = 0f; //amount to add to global per second Oxygen change
 
-	public float oxygenReqUpper = 0f;
+	//Requirements
+	public float oxygenReqUpper = 0f;  
 	public float coReqUpper = 0f;
 	public float tempReq = 0f;
 
-	public float growthAmount = 1f;
+	//Food
+	public string[] foodGroupTargets;	//List of foods this entity eats
+	public string foodGroup = "";	//food group of entity
 
-	public int updateRate = 500;
-	public int updateCount = 0;
-	public int adjustment = 1;
+	//Growth
+	public float growthAmount = 1f;	//Growth speed adjustment constant
+
+	//Update speed
+	public int updateRate = 500; //Number of frames between updates
+	public int updateCount = 0;	//Initial update frame count
+	public int adjustment = 1;	//Entity balance adjustment (Higher values increase population growth speed)
 
 	public string entityName = null;
 
 	public bool registered = false;
+
+	public Rigidbody target;
+	public bool nearFood = false; //Switch to indicate food has entered vicinity
+
 
 	//property methods
 
@@ -94,8 +106,16 @@ public class EcosystemEntity : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
 
+		if(nearFood)	//checks if near food tag is true. If true moves entity towards target food
+		{
+			//Vector3 target = new Vector3(0,0,100f);
+			Vector3 move = Vector3.Lerp(rigidbody.position, target.position, Time.deltaTime * 1f);
+			rigidbody.MovePosition(move);
+		}
+		//this.UpdateExtra ();
 	}//End Update()--------------------------------------------------------------------------------------------------------
 
+	public void UpdateExtra () {}
 
 	void FixedUpdate(){
 		
@@ -103,7 +123,6 @@ public class EcosystemEntity : MonoBehaviour
 		if (updateCount == updateRate) 
 		{
 			updateCount = 0;
-			Debug.Log(entityName + " updating");
 			EcoCalculations ();	
 		}
 		updateCount++;
